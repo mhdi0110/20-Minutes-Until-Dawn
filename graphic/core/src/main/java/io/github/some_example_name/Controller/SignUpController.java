@@ -16,6 +16,7 @@ public class SignUpController {
         font = new BitmapFont();
     }
 
+
     public void handleSignUpButtons() {
         if (view.getTextButton().isChecked()) {
             if (!App.isUserRegistered(view.getUserNameBox().getText())) {
