@@ -1,5 +1,79 @@
 package io.github.some_example_name.Model;
 
-public class Enemy {
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
+public class Enemy {
+    private float x, y;
+    private float speed = 2;
+    private String name;
+    private Animation<Texture> enemyAnimation;
+    private Texture enemyTexture;
+    private Sprite enemySprite;
+    private float time = 0;
+    private HitBox hitBox;
+    
+    public Enemy(float x, float y, String name) {
+        this.x = x;
+        this.y = y;
+        this.name = name;
+        setAnimation();
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public void moveTowards(float targetX, float targetY) {
+        float dx = targetX - x;
+        float dy = targetY - y;
+        float distance = (float) Math.sqrt(dx * dx + dy * dy);
+        if (distance > 0) {
+            x += (dx / distance) * speed;
+            y += (dy / distance) * speed;
+        }
+    }
+
+    public Animation<Texture> getEnemyAnimation() {
+        return enemyAnimation;
+    }
+
+    public void setAnimation() {
+        switch (this.name) {
+            case "tree":
+                this.enemyAnimation = GameAssetsManager.getTreeAnimation();
+                this.enemyTexture = GameAssetsManager.getTree0();
+                this.enemySprite = new Sprite(enemyTexture);
+                this.enemySprite.setPosition(x, y);
+                this.enemySprite.setSize(100, 100);
+                break;
+            case "tentacle_monster":
+                break;
+            case "eyeBat":
+                break;
+            default:
+                break;
+        }
+    }
+
+    public Sprite getEnemySprite() {
+        return enemySprite;
+    }
+
+    public float getTime() {
+        return time;
+    }
+
+    public void setTime(float time) {
+        this.time = time;
+    }
+
+    public Texture getEnemyTexture() {
+        return enemyTexture;
+    }
 }

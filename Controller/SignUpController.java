@@ -73,8 +73,7 @@ public class SignUpController {
         }
     }
     public void setAvatar(Player user) {
-        Random random = new Random();
-        int randomNumber = random.nextInt(5) + 1;
+        int randomNumber = GenerateRandomNumber.generateRandomNumber(1, 5);
         String avatarStr = "avatar/avatar" + randomNumber + ".png";
         user.setAvatar(new Texture(Gdx.files.internal(avatarStr)));
     }

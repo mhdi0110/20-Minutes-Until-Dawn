@@ -56,6 +56,11 @@ public class GameAssetsManager {
     private static final Texture smgReload3 = new Texture(Gdx.files.internal("Sprite/SMGReload/SMGReload_3.png"));
     private static final Animation<Texture> smgReload = new Animation<>(0.1f,
         smgReload0, smgReload1, smgReload2, smgReload3);
+    private static final Texture tree0 = new Texture(Gdx.files.internal("Sprite/T/T_TreeMonster_0.png"));
+    private static final Texture tree1 = new Texture(Gdx.files.internal("Sprite/T/T_TreeMonster_1.png"));
+    private static final Texture tree2 = new Texture(Gdx.files.internal("Sprite/T/T_TreeMonster_2.png"));
+    private static final Animation<Texture> treeAnimation = new Animation<>(2f,
+        tree0, tree1, tree2);
 
     public static Skin getSkin() {
         if (skin == null) {
@@ -120,4 +125,11 @@ public class GameAssetsManager {
         return smgReload;
     }
 
+    public static Animation<Texture> getTreeAnimation() {
+        return treeAnimation;
+    }
+
+    public static Texture getTree0() {
+        return tree0;
+    }
 }
