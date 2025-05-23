@@ -11,15 +11,18 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.some_example_name.Controller.GameController;
 import io.github.some_example_name.Main;
+import io.github.some_example_name.Model.App;
+import io.github.some_example_name.Model.Player;
 
 
 public class GameView implements Screen, InputProcessor {
     private Stage stage;
     private GameController controller;
-
+    private Player player;
     public GameView(GameController controller, Skin skin) {
         this.controller = controller;
         controller.setView(this);
+        player = App.getCurrentPlayer();
     }
 
     @Override
@@ -33,6 +36,7 @@ public class GameView implements Screen, InputProcessor {
         ScreenUtils.clear(0, 0, 0, 1);
         Main.getBatch().begin();
         controller.updateGame();
+        player.setInvincibleTime(Math.max(0, player.getInvincibleTime() - delta));
         Main.getBatch().end();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import io.github.some_example_name.Main;
 
 public class Enemy {
     private float x, y;
@@ -14,11 +15,19 @@ public class Enemy {
     private Sprite enemySprite;
     private float time = 0;
     private HitBox hitBox;
+    private int width;
+    private int height;
+    private int damage = 1;
+    private int health;
 
-    public Enemy(float x, float y, String name) {
+    public Enemy(float x, float y, String name, int width, int height, int health) {
         this.x = x;
         this.y = y;
         this.name = name;
+        this.width = width;
+        this.height = height;
+        this.health = health;
+        hitBox = new HitBox(x, y, width, height);
         setAnimation();
     }
 
@@ -31,7 +40,7 @@ public class Enemy {
     }
 
     public void moveTowards(float targetX, float targetY) {
-        if(this.name.equals("tree")) {
+        if (this.name.equals("tree")) {
             return;
         }
         float dx = targetX - x;
@@ -55,7 +64,7 @@ public class Enemy {
                 this.enemyTexture = GameAssetsManager.getTree0();
                 this.enemySprite = new Sprite(enemyTexture);
 //                this.enemySprite.setPosition(x - player.getPosX(), y - player.getPosY());
-                this.enemySprite.setSize(100, 100);
+                this.enemySprite.setSize(width, height);
                 break;
             case "tentacle_monster":
                 break;
@@ -65,10 +74,13 @@ public class Enemy {
                 break;
         }
     }
+
     public void updateSpritePosition(Player player) {
-        if ("tree".equals(name)) {
-            enemySprite.setPosition(x - player.getPosX() + (float) Gdx.graphics.getWidth() / 2,
-                y - player.getPosY() + (float) Gdx.graphics.getHeight() / 2);
+        if (name.equals("tree")) {
+            enemySprite.setPosition(
+                x - player.getPosX() + (float) (Gdx.graphics.getWidth() / 2),
+                y - player.getPosY() + (float) (Gdx.graphics.getHeight() / 2)
+            );
         } else {
             enemySprite.setPosition(x - player.getPosX(), y - player.getPosY());
         }
@@ -88,5 +100,22 @@ public class Enemy {
 
     public Texture getEnemyTexture() {
         return enemyTexture;
+    }
+
+    public HitBox getHitBox() {
+        return hitBox;
+    }
+    public void reducePlayerHealth(Player player) {
+        if(player.getInvincibleTime() == 0) {
+            player.getHero().setHealth(player.getHero().getHealth() - damage);
+        }
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 }

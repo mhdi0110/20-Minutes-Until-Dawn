@@ -23,10 +23,16 @@ public class EnemyController {
         float playerX = player.getPosX();
         float playerY = player.getPosY();
         for (Enemy enemy : enemies) {
-            enemy.moveTowards(playerX, playerY);
-            enemyAnimation(enemy);
-            enemy.updateSpritePosition(player);
-            enemy.getEnemySprite().draw(Main.getBatch());
+            if (enemy.getHealth() > 0) {
+                enemy.moveTowards(playerX, playerY);
+                enemyAnimation(enemy);
+                enemy.updateSpritePosition(player);
+                enemy.getEnemySprite().draw(Main.getBatch());
+                if (player.getHitBox().collidesWith(enemy.getHitBox())) {//TODO:hits the tree, stays, doesn't have effect
+                    enemy.reducePlayerHealth(player);
+                    player.setInvincibleTime(1);
+                }
+            }
         }
     }
 
@@ -44,4 +50,5 @@ public class EnemyController {
             enemy.setTime(0);
         }
     }
+
 }

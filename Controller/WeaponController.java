@@ -8,18 +8,18 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import io.github.some_example_name.Enums.KeyBoardPreferences;
 import io.github.some_example_name.Main;
-import io.github.some_example_name.Model.Bullet;
-import io.github.some_example_name.Model.GameAssetsManager;
-import io.github.some_example_name.Model.Weapon;
+import io.github.some_example_name.Model.*;
 
 import java.util.ArrayList;
 
 public class WeaponController {
-    Weapon weapon;
+    private Weapon weapon;
     private ArrayList<Bullet> bullets = new ArrayList<>();
+    private ArrayList<Enemy> enemies = new ArrayList<>();
 
     public WeaponController(Weapon weapon) {
         this.weapon = weapon;
+        enemies = App.getCurrentGame().getEnemies();
     }
 
     public void handleWeaponRotation(int screenX, int screenY) {
@@ -55,15 +55,22 @@ public class WeaponController {
     }
 
     public void updateBullets() {
-        for (Bullet b : bullets) {
-            b.getBulletSprite().draw(Main.getBatch());
+        for (Bullet bullet : bullets) {
+            bullet.getBulletSprite().draw(Main.getBatch());
             Vector2 direction = new Vector2(
-                Gdx.graphics.getWidth() / 2f - b.getX(),
-                Gdx.graphics.getHeight() / 2f - b.getY()
+                Gdx.graphics.getWidth() / 2f - bullet.getX(),
+                Gdx.graphics.getHeight() / 2f - bullet.getY()
             ).nor();
 
-            b.getBulletSprite().setX(b.getBulletSprite().getX() - direction.x * 5);
-            b.getBulletSprite().setY(b.getBulletSprite().getY() + direction.y * 5);
+            bullet.getBulletSprite().setX(bullet.getBulletSprite().getX() - direction.x * 5);
+            bullet.getBulletSprite().setY(bullet.getBulletSprite().getY() + direction.y * 5);
+            bullet.getHitBox().move(bullet.getBulletSprite().getX(), bullet.getBulletSprite().getY());
+            for (Enemy enemy : enemies) {
+                if(bullet.getHitBox().collidesWith(enemy.getHitBox())) {
+                    bullet.reduceEnemyHealth(weapon.getDamage(), enemy);
+                    App.getCurrentPlayer().getHero().setHealth(App.getCurrentPlayer().getHero().getHealth() + 1);
+                }
+            }
         }
     }
 

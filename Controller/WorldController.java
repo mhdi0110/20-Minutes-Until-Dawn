@@ -1,5 +1,6 @@
 package io.github.some_example_name.Controller;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import io.github.some_example_name.Main;
 
@@ -15,8 +16,8 @@ public class WorldController {
     }
 
     public void update() {
-        backgroundX = playerController.getPlayer().getPosX();
-        backgroundY = playerController.getPlayer().getPosY();
-        Main.getBatch().draw(backgroundTexture, backgroundX, backgroundY);
+        float bgScreenX = 0 - playerController.getPlayer().getPosX() + (float) Gdx.graphics.getWidth() / 2;
+        float bgScreenY = 0 - playerController.getPlayer().getPosY() + (float) Gdx.graphics.getHeight() / 2;
+        Main.getBatch().draw(backgroundTexture, bgScreenX, bgScreenY);
     }
 }

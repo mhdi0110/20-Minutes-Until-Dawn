@@ -61,6 +61,12 @@ public class GameAssetsManager {
     private static final Texture tree2 = new Texture(Gdx.files.internal("Sprite/T/T_TreeMonster_2.png"));
     private static final Animation<Texture> treeAnimation = new Animation<>(2f,
         tree0, tree1, tree2);
+    private static final Texture heart0 = new Texture(Gdx.files.internal("Sprite/HeartAnimation/Heart_0.png"));
+    private static final Texture heart1 = new Texture(Gdx.files.internal("Sprite/HeartAnimation/Heart_1.png"));
+    private static final Texture heart2 = new Texture(Gdx.files.internal("Sprite/HeartAnimation/Heart_2.png"));
+    private static final Texture heart3 = new Texture(Gdx.files.internal("Sprite/HeartAnimation/Heart_3.png"));
+    private static final Animation<Texture> heartAnimation = new Animation<>(0.5f,
+        heart0, heart1, heart2);
 
     public static Skin getSkin() {
         if (skin == null) {
@@ -131,5 +137,17 @@ public class GameAssetsManager {
 
     public static Texture getTree0() {
         return tree0;
+    }
+
+    public static Animation<Texture> getHeartAnimation() {
+        return heartAnimation;
+    }
+
+    public static Texture getHeart0() {
+        return heart0;
+    }
+
+    public static Texture getHeart3() {
+        return heart3;
     }
 }

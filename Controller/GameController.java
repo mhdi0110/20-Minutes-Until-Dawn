@@ -12,21 +12,37 @@ import java.util.ArrayList;
 
 public class GameController {
     private GameView view;
+    private Game game;
     private PlayerController playerController = new PlayerController(App.getCurrentPlayer());
     private WeaponController weaponController = new WeaponController(App.getCurrentPlayer().getWeapon());
     private WorldController worldController = new WorldController(playerController);
     private EnemyController enemyController;
+
     public void setView(GameView view) {
         this.view = view;
     }
+
     public GameController() {
-        ArrayList<Enemy> enemies = new ArrayList<>();
-        enemies.add(new Enemy(100, 100, EnemyConstants.TREE.getName()));
+        this.game = App.getCurrentGame();
+        ArrayList<Enemy> enemies = game.getEnemies();
+        int treeAmount = GenerateRandomNumber.generateRandomNumber(20, 30);
+        for (int i = 0; i < treeAmount; i++) {
+            int x = GenerateRandomNumber.generateRandomNumber(0, 3500);
+            int y = GenerateRandomNumber.generateRandomNumber(0, 2500);
+            for (Enemy enemy : enemies) {
+                while(enemy.getX() == x && enemy.getY() == y) {
+                    x = GenerateRandomNumber.generateRandomNumber(0, 3500);
+                    y = GenerateRandomNumber.generateRandomNumber(0, 2500);
+                }
+            }
+            enemies.add(new Enemy(x, y, EnemyConstants.TREE.getName(),
+                EnemyConstants.TREE.getWidth(), EnemyConstants.TREE.getHeight(), EnemyConstants.TREE.getHealth()));
+        }
         enemyController = new EnemyController(enemies, App.getCurrentPlayer());
     }
 
     public void updateGame() {
-        if(view != null) {
+        if (view != null) {
             worldController.update();
             playerController.update();
             weaponController.update();

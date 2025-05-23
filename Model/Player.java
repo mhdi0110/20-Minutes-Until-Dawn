@@ -25,14 +25,18 @@ public class Player {
     private float posY = 0;
     private float speed = 5;
     private float time = 0;
+    private float heartTime = 0;
     private Animation<Texture> playerAnimation;
-
+    private Sprite heartSprite;
+    private Texture heartTexture;
+    private float invincibleTime = 0;
     public Player(String username, String password) {
         this.username = username;
         this.password = password;
         this.security = "";
         this.securityAnswer = "";
         this.score = 0;
+        setHeartTexture();
     }
 
     public String getUsername() {
@@ -189,5 +193,34 @@ public class Player {
                 playerAnimation = GameAssetsManager.getDasherAnimation();
                 break;
         }
+    }
+
+    public HitBox getHitBox() {
+        return hitBox;
+    }
+    public void setHeartTexture() {
+        heartTexture = GameAssetsManager.getHeart0();
+        heartSprite = new Sprite(heartTexture);
+        heartSprite.setSize(heartTexture.getWidth() * 3, heartTexture.getHeight() * 3);
+    }
+
+    public Sprite getHeartSprite() {
+        return heartSprite;
+    }
+
+    public float getHeartTime() {
+        return heartTime;
+    }
+
+    public void setHeartTime(float heartTime) {
+        this.heartTime = heartTime;
+    }
+
+    public float getInvincibleTime() {
+        return invincibleTime;
+    }
+
+    public void setInvincibleTime(float invincibleTime) {
+        this.invincibleTime = invincibleTime;
     }
 }

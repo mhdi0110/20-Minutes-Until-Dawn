@@ -16,7 +16,8 @@ public class HitBox {
         this.y = y;
     }
 
-    public boolean collidesWith(HitBox rect) {
-        return x < rect.x + rect.width && y < rect.y + rect.height && x + width > rect.x && y + height > rect.y;
+    public boolean collidesWith(HitBox hitBox) {
+        return x < hitBox.x + hitBox.width && y < hitBox.y + hitBox.height
+            && x + width > hitBox.x && y + height > hitBox.y;
     }
 }

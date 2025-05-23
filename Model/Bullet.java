@@ -7,13 +7,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class Bullet {
     private Texture bulletTexture = GameAssetsManager.getBullet();
     private Sprite bulletSprite = new Sprite(bulletTexture);
-    private int damage = 5;
     private int x;
     private int y;
+    private int width;
+    private int height;
+    private HitBox hitBox;
 
     public Bullet(int x, int y){
         this.x = x;
         this.y = y;
+        this.width = 20;
+        this.height = 20;
+        hitBox = new HitBox(x, y, width, height);
     }
 
     public Texture getBulletTexture() {
@@ -22,10 +27,6 @@ public class Bullet {
 
     public Sprite getBulletSprite() {
         return bulletSprite;
-    }
-
-    public int getDamage() {
-        return damage;
     }
 
     public int getX() {
@@ -47,8 +48,15 @@ public class Bullet {
                break;
         }
         bulletSprite = new Sprite(bulletTexture);
-        bulletSprite.setSize(20 , 20);
+        bulletSprite.setSize(width , height);
         bulletSprite.setX((float) Gdx.graphics.getWidth() / 2);
         bulletSprite.setY((float) Gdx.graphics.getHeight() / 2);
+    }
+
+    public HitBox getHitBox() {
+        return hitBox;
+    }
+    public void reduceEnemyHealth(int damage, Enemy enemy) {
+        enemy.setHealth(enemy.getHealth() - damage);
     }
 }
