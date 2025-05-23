@@ -25,6 +25,7 @@ public class EnemyController {
         for (Enemy enemy : enemies) {
             enemy.moveTowards(playerX, playerY);
             enemyAnimation(enemy);
+            enemy.updateSpritePosition(player);
             enemy.getEnemySprite().draw(Main.getBatch());
         }
     }

@@ -1,5 +1,6 @@
 package io.github.some_example_name.Model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -13,7 +14,7 @@ public class Enemy {
     private Sprite enemySprite;
     private float time = 0;
     private HitBox hitBox;
-    
+
     public Enemy(float x, float y, String name) {
         this.x = x;
         this.y = y;
@@ -30,6 +31,9 @@ public class Enemy {
     }
 
     public void moveTowards(float targetX, float targetY) {
+        if(this.name.equals("tree")) {
+            return;
+        }
         float dx = targetX - x;
         float dy = targetY - y;
         float distance = (float) Math.sqrt(dx * dx + dy * dy);
@@ -44,12 +48,13 @@ public class Enemy {
     }
 
     public void setAnimation() {
+        Player player = App.getCurrentPlayer();
         switch (this.name) {
             case "tree":
                 this.enemyAnimation = GameAssetsManager.getTreeAnimation();
                 this.enemyTexture = GameAssetsManager.getTree0();
                 this.enemySprite = new Sprite(enemyTexture);
-                this.enemySprite.setPosition(x, y);
+//                this.enemySprite.setPosition(x - player.getPosX(), y - player.getPosY());
                 this.enemySprite.setSize(100, 100);
                 break;
             case "tentacle_monster":
@@ -58,6 +63,14 @@ public class Enemy {
                 break;
             default:
                 break;
+        }
+    }
+    public void updateSpritePosition(Player player) {
+        if ("tree".equals(name)) {
+            enemySprite.setPosition(x - player.getPosX() + (float) Gdx.graphics.getWidth() / 2,
+                y - player.getPosY() + (float) Gdx.graphics.getHeight() / 2);
+        } else {
+            enemySprite.setPosition(x - player.getPosX(), y - player.getPosY());
         }
     }
 
