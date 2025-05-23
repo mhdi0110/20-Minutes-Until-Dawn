@@ -49,6 +49,7 @@ public class Enemy {
         if (distance > 0) {
             x += (dx / distance) * speed;
             y += (dy / distance) * speed;
+            hitBox.move(x, y);
         }
     }
 
@@ -57,16 +58,18 @@ public class Enemy {
     }
 
     public void setAnimation() {
-        Player player = App.getCurrentPlayer();
         switch (this.name) {
             case "tree":
-                this.enemyAnimation = GameAssetsManager.getTreeAnimation();
-                this.enemyTexture = GameAssetsManager.getTree0();
-                this.enemySprite = new Sprite(enemyTexture);
-//                this.enemySprite.setPosition(x - player.getPosX(), y - player.getPosY());
-                this.enemySprite.setSize(width, height);
+                enemyAnimation = GameAssetsManager.getTreeAnimation();
+                enemyTexture = GameAssetsManager.getTree0();
+                enemySprite = new Sprite(enemyTexture);
+                enemySprite.setSize(width, height);
                 break;
             case "tentacle_monster":
+                enemyAnimation = GameAssetsManager.getBrainMonsterAnimation();
+                enemyTexture = GameAssetsManager.getBrainMonster0();
+                enemySprite = new Sprite(enemyTexture);
+                enemySprite.setSize(width, height);
                 break;
             case "eyeBat":
                 break;
@@ -76,14 +79,9 @@ public class Enemy {
     }
 
     public void updateSpritePosition(Player player) {
-        if (name.equals("tree")) {
-            enemySprite.setPosition(
-                x - player.getPosX() + (float) (Gdx.graphics.getWidth() / 2),
-                y - player.getPosY() + (float) (Gdx.graphics.getHeight() / 2)
-            );
-        } else {
-            enemySprite.setPosition(x - player.getPosX(), y - player.getPosY());
-        }
+        float newX = x - player.getPosX() + (float) (Gdx.graphics.getWidth() / 2);
+        float newY = y - player.getPosY() + (float) (Gdx.graphics.getHeight() / 2);
+        enemySprite.setPosition(newX, newY);
     }
 
     public Sprite getEnemySprite() {
@@ -105,8 +103,9 @@ public class Enemy {
     public HitBox getHitBox() {
         return hitBox;
     }
+
     public void reducePlayerHealth(Player player) {
-        if(player.getInvincibleTime() == 0) {
+        if (player.getInvincibleTime() <= 0) {
             player.getHero().setHealth(player.getHero().getHealth() - damage);
         }
     }

@@ -1,9 +1,9 @@
 package io.github.some_example_name.Enums;
 
 public enum EnemyConstants {
-    TREE(20, "tree"),
-    TENTACLE_MONSTER(25, "tentacle_monster"),
-    EYEBAT(50, "eyeBat"),
+    TREE(20, "tree", 100, 100),
+    TENTACLE_MONSTER(25, "tentacle_monster", 80, 80),
+    EYEBAT(50, "eyeBat", 80, 80),
     ;
 
     final int health;
@@ -27,10 +27,10 @@ public enum EnemyConstants {
         return height;
     }
 
-    EnemyConstants(int value, String name) {
+    EnemyConstants(int value, String name, int width, int height) {
         this.health = value;
         this.name = name;
-        this.width = 100;
-        this.height = 100;
+        this.width = width;
+        this.height = height;
     }
 }

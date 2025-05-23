@@ -30,7 +30,7 @@ public class  PreGameMenuController {
 
             view.getPlayButton().setChecked(false);
             Main.getMain().getScreen().dispose();
-            Main.getMain().setScreen(new GameView(new GameController(), GameAssetsManager.getSkin()));
+            Main.getMain().setScreen(new GameView(new GameController(), GameAssetsManager.getSkin(), game));
         }
     }
 }

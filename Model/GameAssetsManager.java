@@ -67,6 +67,12 @@ public class GameAssetsManager {
     private static final Texture heart3 = new Texture(Gdx.files.internal("Sprite/HeartAnimation/Heart_3.png"));
     private static final Animation<Texture> heartAnimation = new Animation<>(0.5f,
         heart0, heart1, heart2);
+    private static final Texture brainMonster0 = new Texture(Gdx.files.internal("Sprite/BrainMonster/BrainMonster_0.png"));
+    private static final Texture brainMonster1 = new Texture(Gdx.files.internal("Sprite/BrainMonster/BrainMonster_1.png"));
+    private static final Texture brainMonster2 = new Texture(Gdx.files.internal("Sprite/BrainMonster/BrainMonster_2.png"));
+    private static final Texture brainMonster3 = new Texture(Gdx.files.internal("Sprite/BrainMonster/BrainMonster_3.png"));
+    private static final Animation<Texture> brainMonsterAnimation = new Animation<>(0.1f,
+        brainMonster0, brainMonster1, brainMonster2, brainMonster3);
 
     public static Skin getSkin() {
         if (skin == null) {
@@ -149,5 +155,13 @@ public class GameAssetsManager {
 
     public static Texture getHeart3() {
         return heart3;
+    }
+
+    public static Animation<Texture> getBrainMonsterAnimation() {
+        return brainMonsterAnimation;
+    }
+
+    public static Texture getBrainMonster0() {
+        return brainMonster0;
     }
 }
