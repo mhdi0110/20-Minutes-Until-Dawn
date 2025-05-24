@@ -15,7 +15,7 @@ public class  PreGameMenuController {
         if(view.getPlayButton().isChecked()) {
             String heroName = view.getHeroSelectBox().getSelected();
             String weaponName = view.getWeaponSelectBox().getSelected();
-            int duration = view.getDurationSelectBox().getSelected();
+            float duration = view.getDurationSelectBox().getSelected();
             Hero hero = App.getHeroByName(heroName);
             Weapon weapon = App.getWeaponByName(weaponName);
             Game game = new Game(duration);

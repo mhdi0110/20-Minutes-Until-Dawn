@@ -23,19 +23,21 @@ public class Player {
     private HitBox hitBox;
     private float posX = 0;
     private float posY = 0;
-    private float speed = 5;
     private float time = 0;
     private float heartTime = 0;
     private Animation<Texture> playerAnimation;
     private Sprite heartSprite;
     private Texture heartTexture;
     private float invincibleTime = 0;
+    private int xp;
+    private int level;
     public Player(String username, String password) {
         this.username = username;
         this.password = password;
         this.security = "";
         this.securityAnswer = "";
         this.score = 0;
+        this.xp = 0;
         setHeartTexture();
     }
 
@@ -122,14 +124,6 @@ public class Player {
 
     public float getPosX() {
         return posX;
-    }
-
-    public float getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
     }
 
     public float getTime() {
@@ -222,5 +216,11 @@ public class Player {
 
     public void setInvincibleTime(float invincibleTime) {
         this.invincibleTime = invincibleTime;
+    }
+
+    public void reducePlayerHealth(int damage) {
+        if (invincibleTime <= 0) {
+            hero.setHealth(hero.getHealth() - damage);
+        }
     }
 }

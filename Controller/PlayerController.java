@@ -30,20 +30,20 @@ public class PlayerController {
 
     public void handlePlayerInput() {
         if (Gdx.input.isKeyPressed(KeyBoardPreferences.UP.getValue())) {
-            player.setPosY(player.getPosY() + player.getSpeed());
+            player.setPosY(player.getPosY() + player.getHero().getSpeed());
             player.getHitBox().move(player.getPosX(), player.getPosY());
         }
         if (Gdx.input.isKeyPressed(KeyBoardPreferences.LEFT.getValue())) {
-            player.setPosX(player.getPosX() - player.getSpeed());
+            player.setPosX(player.getPosX() - player.getHero().getSpeed());
             player.getPlayerSprite().flip(true, false);
             player.getHitBox().move(player.getPosX(), player.getPosY());
         }
         if (Gdx.input.isKeyPressed(KeyBoardPreferences.DOWN.getValue())) {
-            player.setPosY(player.getPosY() - player.getSpeed());
+            player.setPosY(player.getPosY() - player.getHero().getSpeed());
             player.getHitBox().move(player.getPosX(), player.getPosY());
         }
         if (Gdx.input.isKeyPressed(KeyBoardPreferences.RIGHT.getValue())) {
-            player.setPosX(player.getPosX() + player.getSpeed());
+            player.setPosX(player.getPosX() + player.getHero().getSpeed());
             player.getHitBox().move(player.getPosX(), player.getPosY());
         }
     }

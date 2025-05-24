@@ -19,7 +19,7 @@ public class Enemy {
     private int height;
     private int damage = 1;
     private int health;
-
+    private Texture seedTexture;
     public Enemy(float x, float y, String name, int width, int height, int health) {
         this.x = x;
         this.y = y;
@@ -62,16 +62,23 @@ public class Enemy {
             case "tree":
                 enemyAnimation = GameAssetsManager.getTreeAnimation();
                 enemyTexture = GameAssetsManager.getTree0();
+                seedTexture = GameAssetsManager.getBrainMonsterSeed();
                 enemySprite = new Sprite(enemyTexture);
                 enemySprite.setSize(width, height);
                 break;
             case "tentacle_monster":
                 enemyAnimation = GameAssetsManager.getBrainMonsterAnimation();
                 enemyTexture = GameAssetsManager.getBrainMonster0();
+                seedTexture = GameAssetsManager.getBrainMonsterSeed();
                 enemySprite = new Sprite(enemyTexture);
                 enemySprite.setSize(width, height);
                 break;
             case "eyeBat":
+                enemyAnimation = GameAssetsManager.getEyeBatAnimation();
+                enemyTexture = GameAssetsManager.getEyeBat0();
+                seedTexture = GameAssetsManager.getEyeBatSeed();
+                enemySprite = new Sprite(enemyTexture);
+                enemySprite.setSize(width, height);
                 break;
             default:
                 break;
@@ -104,17 +111,27 @@ public class Enemy {
         return hitBox;
     }
 
-    public void reducePlayerHealth(Player player) {
-        if (player.getInvincibleTime() <= 0) {
-            player.getHero().setHealth(player.getHero().getHealth() - damage);
-        }
-    }
-
     public int getHealth() {
         return health;
     }
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Texture getSeedTexture() {
+        return seedTexture;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setEnemySprite(Sprite enemySprite) {
+        this.enemySprite = enemySprite;
     }
 }

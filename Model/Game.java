@@ -3,11 +3,11 @@ package io.github.some_example_name.Model;
 import java.util.ArrayList;
 
 public class Game {
-    private final int duration;
+    private final float duration;
     private ArrayList<Enemy> enemies;
-    private int timePassed;
+    private float timePassed;
 
-    public Game(int duration) {
+    public Game(float duration) {
         this.duration = duration * 60;
         enemies = new ArrayList<>();
         timePassed = 0;
@@ -21,15 +21,15 @@ public class Game {
         enemies.add(enemy);
     }
 
-    public int getTimePassed() {
+    public float getTimePassed() {
         return timePassed;
     }
 
-    public void setTimePassed(int timePassed) {
+    public void setTimePassed(float timePassed) {
         this.timePassed = timePassed;
     }
 
-    public int getDuration() {
+    public float getDuration() {
         return duration;
     }
 }

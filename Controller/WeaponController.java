@@ -50,7 +50,7 @@ public class WeaponController {
             dirX /= length;
             dirY /= length;
             Bullet bullet = new Bullet(playerX, playerY, dirX, dirY);
-            bullet.setBulletTexture(weapon);
+            bullet.setBulletTexture();
             bullets.add(bullet);
             weapon.setAmmo(weapon.getAmmo() - 1);
         }

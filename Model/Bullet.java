@@ -3,6 +3,7 @@ package io.github.some_example_name.Model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import io.github.some_example_name.Main;
 
 public class Bullet {
     private Texture bulletTexture = GameAssetsManager.getBullet();
@@ -50,17 +51,17 @@ public class Bullet {
     public float getY() {
         return y;
     }
-    public void setBulletTexture(Weapon weapon) {
-        switch (weapon.getName()) {//TODO
-            case "revolver":
-                break;
-            case "shotgun":
-                break;
-            case "smg":
-                break;
-            default:
-               break;
-        }
+    public void setBulletTexture() {
+//        switch (weapon.getName()) {//TODO
+//            case "revolver":
+//                break;
+//            case "shotgun":
+//                break;
+//            case "smg":
+//                break;
+//            default:
+//               break;
+//        }
         bulletSprite = new Sprite(bulletTexture);
         bulletSprite.setSize(width , height);
         bulletSprite.setX((float) Gdx.graphics.getWidth() / 2);
@@ -73,7 +74,12 @@ public class Bullet {
     public void reduceEnemyHealth(int damage, Enemy enemy) {
         enemy.setHealth(enemy.getHealth() - damage);
         if(enemy.getHealth() <= 0) {
-            App.getCurrentGame().getEnemies().remove(enemy);
+            Texture texture = enemy.getSeedTexture();
+            Sprite sprite = new Sprite(texture);
+            enemy.setEnemySprite(sprite);
+
+//            enemy.getEnemySprite().draw(Main.getBatch());
+//            App.getCurrentGame().getEnemies().remove(enemy);
         }
     }
 }

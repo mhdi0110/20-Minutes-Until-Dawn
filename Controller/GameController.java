@@ -20,7 +20,6 @@ public class GameController {
     private WeaponController weaponController = new WeaponController(App.getCurrentPlayer().getWeapon());
     private WorldController worldController = new WorldController(playerController);
     private EnemyController enemyController;
-    private int tentacleSpawnTimer = 0;
 
     public void setView(GameView view) {
         this.view = view;
@@ -43,21 +42,7 @@ public class GameController {
             enemies.add(new Enemy(x, y, EnemyConstants.TREE.getName(),
                 EnemyConstants.TREE.getWidth(), EnemyConstants.TREE.getHeight(), EnemyConstants.TREE.getHealth()));
         }
-        for (int i = 0; i < game.getTimePassed(); i++) {
-            if (tentacleSpawnTimer >= 3) {
-                x = GenerateRandomNumber.generateRandomNumber(0, 35);
-                y = GenerateRandomNumber.generateRandomNumber(0, 25);
-                enemies.add(new Enemy(x, y, EnemyConstants.TENTACLE_MONSTER.getName(), EnemyConstants.TENTACLE_MONSTER.getWidth(),
-                    EnemyConstants.TENTACLE_MONSTER.getHeight(), EnemyConstants.TENTACLE_MONSTER.getHealth()));
-                tentacleSpawnTimer = 0;
-            } else {
-                tentacleSpawnTimer += (int) Gdx.graphics.getDeltaTime();
-
-            }
-            BitmapFont font = new BitmapFont();
-            font.draw(Main.getBatch(), tentacleSpawnTimer + "" , 10 , 10);
-        }
-        enemyController = new EnemyController(enemies, App.getCurrentPlayer());
+        enemyController = new EnemyController(enemies, App.getCurrentPlayer(), game);
     }
 
     public void updateGame(float delta) {

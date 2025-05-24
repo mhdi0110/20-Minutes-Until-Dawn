@@ -71,9 +71,16 @@ public class GameAssetsManager {
     private static final Texture brainMonster1 = new Texture(Gdx.files.internal("Sprite/BrainMonster/BrainMonster_1.png"));
     private static final Texture brainMonster2 = new Texture(Gdx.files.internal("Sprite/BrainMonster/BrainMonster_2.png"));
     private static final Texture brainMonster3 = new Texture(Gdx.files.internal("Sprite/BrainMonster/BrainMonster_3.png"));
+    private static final Texture brainMonsterSeed = new Texture(Gdx.files.internal("Sprite/BrainMonster/BrainMonster_EM.png"));
     private static final Animation<Texture> brainMonsterAnimation = new Animation<>(0.1f,
         brainMonster0, brainMonster1, brainMonster2, brainMonster3);
-
+    private static final Texture eyeBat0 = new Texture(Gdx.files.internal("Sprite/EyeBat/T_EyeBat_0.png"));
+    private static final Texture eyeBat1 = new Texture(Gdx.files.internal("Sprite/EyeBat/T_EyeBat_1.png"));
+    private static final Texture eyeBat2 = new Texture(Gdx.files.internal("Sprite/EyeBat/T_EyeBat_2.png"));
+    private static final Texture eyeBat3 = new Texture(Gdx.files.internal("Sprite/EyeBat/T_EyeBat_3.png"));
+    private static final Texture eyeBatSeed = new Texture(Gdx.files.internal("Sprite/EyeBat/T_EyeBat_EM.png"));
+    private static final Animation<Texture> eyeBatAnimation = new Animation<>(0.1f,
+        eyeBat0, eyeBat1, eyeBat2, eyeBat3);
     public static Skin getSkin() {
         if (skin == null) {
             skin = new Skin(Gdx.files.internal("skin/biological-attack-ui.json"));
@@ -163,5 +170,20 @@ public class GameAssetsManager {
 
     public static Texture getBrainMonster0() {
         return brainMonster0;
+    }
+
+    public static Animation<Texture> getEyeBatAnimation() {
+        return eyeBatAnimation;
+    }
+    public static Texture getEyeBat0() {
+        return eyeBat0;
+    }
+
+    public static Texture getEyeBatSeed() {
+        return eyeBatSeed;
+    }
+
+    public static Texture getBrainMonsterSeed() {
+        return brainMonsterSeed;
     }
 }

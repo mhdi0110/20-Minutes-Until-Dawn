@@ -40,7 +40,7 @@ public class GameView implements Screen, InputProcessor {
         Main.getBatch().begin();
         controller.updateGame(delta);
         player.setInvincibleTime(Math.max(0, player.getInvincibleTime() - delta));
-        game.setTimePassed((int) (game.getTimePassed() + delta));
+        game.setTimePassed(game.getTimePassed() + Gdx.graphics.getDeltaTime());
         Main.getBatch().end();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
