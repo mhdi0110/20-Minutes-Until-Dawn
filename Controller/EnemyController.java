@@ -32,31 +32,30 @@ public class EnemyController {
         spawnEnemies();
         updateBullets(Gdx.graphics.getDeltaTime(), player);
         for (Enemy enemy : enemies) {
-            if (enemy.getHealth() > 0) {
-                enemy.moveTowards(playerX, playerY);
-                enemyAnimation(enemy);
-                enemy.updateSpritePosition(player);
-                enemy.getEnemySprite().draw(Main.getBatch());
-                if (player.getHitBox().collidesWith(enemy.getHitBox())) {//TODO:hits the tree, stays, doesn't have effect
-                    player.reducePlayerHealth(enemy.getDamage());
-                    player.setInvincibleTime(1);
-                }
-                if (enemy.getName().equals("eyeBat")) {
-                    if (eyeBatShotTimer >= 3) {
-                        float dirX = playerX - enemy.getX();
-                        float dirY = playerY - enemy.getY();
-                        float length = (float) Math.sqrt(dirX * dirX + dirY * dirY);
-                        dirX /= length;
-                        dirY /= length;
-                        Bullet bullet = new Bullet(enemy.getX(), enemy.getY(), dirX, dirY);
-                        bullet.setBulletTexture();
-                        bullets.add(bullet);
-                        eyeBatShotTimer = 0;
-                    } else {
-                        eyeBatShotTimer += Gdx.graphics.getDeltaTime();
-                    }
+            enemy.moveTowards(playerX, playerY);
+            enemyAnimation(enemy);
+            enemy.updateSpritePosition(player);
+            enemy.getEnemySprite().draw(Main.getBatch());
+            if (player.getHitBox().collidesWith(enemy.getHitBox())) {//TODO:hits the tree, stays, doesn't have effect
+                player.reducePlayerHealth(enemy.getDamage());
+                player.setInvincibleTime(1);
+            }
+            if (enemy.getName().equals("eyeBat")) {
+                if (eyeBatShotTimer >= 3) {
+                    float dirX = playerX - enemy.getX();
+                    float dirY = playerY - enemy.getY();
+                    float length = (float) Math.sqrt(dirX * dirX + dirY * dirY);
+                    dirX /= length;
+                    dirY /= length;
+                    Bullet bullet = new Bullet(enemy.getX(), enemy.getY(), dirX, dirY);
+                    bullet.setBulletTexture();
+                    bullets.add(bullet);
+                    eyeBatShotTimer = 0;
+                } else {
+                    eyeBatShotTimer += Gdx.graphics.getDeltaTime();
                 }
             }
+
         }
     }
 
@@ -108,7 +107,7 @@ public class EnemyController {
                     eyeBatSpawnTimer = 0;
                 } else {
                     eyeBatSpawnTimer += Gdx.graphics.getDeltaTime();
-                }//(4 * (int) game.getTimePassed() - (int) game.getDuration() + 30) / 30
+                }//(4 * (int) game.getTimePassed() - (int) game.getDuration() + 30) / 30//TODO
             }
         }
     }

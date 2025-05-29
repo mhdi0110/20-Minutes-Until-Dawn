@@ -16,6 +16,7 @@ public class Bullet {
     private float dx;
     private float dy;
     private float speed = 500;
+    private Game game;
     public Bullet(float x, float y, float dx, float dy) {
         this.x = x;
         this.y = y;
@@ -24,6 +25,7 @@ public class Bullet {
         this.dx = dx;
         this.dy = dy;
         hitBox = new HitBox(x, y, width, height);
+        game = App.getCurrentGame();
     }
     public void update(float deltaTime) {
         x += dx * speed * deltaTime;
@@ -74,12 +76,9 @@ public class Bullet {
     public void reduceEnemyHealth(int damage, Enemy enemy) {
         enemy.setHealth(enemy.getHealth() - damage);
         if(enemy.getHealth() <= 0) {
-            Texture texture = enemy.getSeedTexture();
-            Sprite sprite = new Sprite(texture);
-            enemy.setEnemySprite(sprite);
-
-//            enemy.getEnemySprite().draw(Main.getBatch());
-//            App.getCurrentGame().getEnemies().remove(enemy);
+            Seed seed = new Seed(enemy, enemy.getX(), enemy.getY(), 20, 20, enemy.getSeedTexture());
+            game.setSeed(seed);
+            App.getCurrentGame().getEnemies().remove(enemy);
         }
     }
 }

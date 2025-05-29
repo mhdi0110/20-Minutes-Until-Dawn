@@ -20,6 +20,7 @@ public class Enemy {
     private int damage = 1;
     private int health;
     private Texture seedTexture;
+    private boolean isDead = false;
     public Enemy(float x, float y, String name, int width, int height, int health) {
         this.x = x;
         this.y = y;
@@ -133,5 +134,13 @@ public class Enemy {
 
     public void setEnemySprite(Sprite enemySprite) {
         this.enemySprite = enemySprite;
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
     }
 }

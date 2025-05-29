@@ -223,4 +223,12 @@ public class Player {
             hero.setHealth(hero.getHealth() - damage);
         }
     }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
+    }
 }
