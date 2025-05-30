@@ -83,8 +83,10 @@ public class MainMenuView implements Screen {
         table.add(logOutButton).width(600).padBottom(32f).height(80);
         table.row();
         stage.addActor(backgroundImage);
-        App.getCurrentPlayer().getAvatarImage().setScale(0.5f);
-        stage.addActor(App.getCurrentPlayer().getAvatarImage());
+        if (App.getCurrentPlayer().getAvatarImage() != null) {
+            App.getCurrentPlayer().getAvatarImage().setScale(0.5f);
+            stage.addActor(App.getCurrentPlayer().getAvatarImage());
+        }
         stage.addActor(table);
     }
 

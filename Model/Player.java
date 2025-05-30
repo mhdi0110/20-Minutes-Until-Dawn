@@ -35,7 +35,8 @@ public class Player {
     private ArrayList<Ability> abilities;
     private int kills;
     private boolean hasWon;
-
+    private int timeAlive;
+    private PlayerData playerData;
     public Player(String username, String password) {
         this.username = username;
         this.password = password;
@@ -47,6 +48,8 @@ public class Player {
         kills = 0;
         hasWon = false;
         abilities = new ArrayList<>();
+        timeAlive = 0;
+        playerData = new PlayerData();
         setHeartTexture();
     }
 
@@ -284,5 +287,17 @@ public class Player {
 
     public void setHasWon(boolean hasWon) {
         this.hasWon = hasWon;
+    }
+
+    public int getTimeAlive() {
+        return timeAlive;
+    }
+
+    public void setTimeAlive(int timeAlive) {
+        this.timeAlive = timeAlive;
+    }
+
+    public PlayerData getPlayerData() {
+        return playerData;
     }
 }

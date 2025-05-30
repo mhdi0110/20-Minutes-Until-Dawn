@@ -36,7 +36,7 @@ public class LoginMenuView implements Screen {
     private boolean isInForgetPassword;
 
     public LoginMenuView(LoginMenuController controller, Skin skin) {
-        App.s();
+//        App.s();
         this.controller = controller;
         this.stage = new Stage();
         this.font = new BitmapFont();

@@ -16,6 +16,7 @@ public class App {
     private static Hero[] heroes;
     private static Weapon[] weapons;
     private static Ability[] abilities;
+    private static ArrayList<PlayerData> playerData = new ArrayList<>();
 
     static {
         heroes = new Hero[5];
@@ -140,6 +141,7 @@ public class App {
     public static Ability getAbilities(int index) {
         return abilities[index];
     }
+
     public static Ability getAbilityByName(String name) {
         for (Ability ability : abilities) {
             if (ability.getName().equals(name)) {
@@ -147,5 +149,17 @@ public class App {
             }
         }
         return null;
+    }
+
+    public static ArrayList<PlayerData> getPlayerData() {
+        return playerData;
+    }
+
+    public static void addPlayerData(PlayerData playerData) {
+        App.playerData.add(playerData);
+    }
+
+    public static void setPlayerData(ArrayList<PlayerData> playerData) {
+        App.playerData = playerData;
     }
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.some_example_name.Controller.EndGameMenuController;
 import io.github.some_example_name.Controller.PauseMenuController;
+import io.github.some_example_name.Controller.SaveAndLoadData;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.Model.Ability;
 import io.github.some_example_name.Model.App;
@@ -39,6 +40,7 @@ public class EndGameMenuView implements Screen {
         winLoseLabel.setFontScale(2f);
         this.goToMainMenuButton = new TextButton("Go back to main menu", skin);
         player = App.getCurrentPlayer();
+        SaveAndLoadData.saveData(player);
     }
 
     @Override

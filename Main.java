@@ -5,11 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import io.github.some_example_name.Controller.LoginMenuController;
-import io.github.some_example_name.Controller.MainMenuController;
+import io.github.some_example_name.Controller.SaveAndLoadData;
+import io.github.some_example_name.Controller.SignUpController;
 import io.github.some_example_name.Model.GameAssetsManager;
-import io.github.some_example_name.View.LoginMenuView;
-import io.github.some_example_name.View.MainMenuView;
+import io.github.some_example_name.View.SignUpMenuView;
 
 /**
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
@@ -22,9 +21,11 @@ public class Main extends Game {
     public void create() {
         main = this;
         batch = new SpriteBatch();
-        main.setScreen(new LoginMenuView(new LoginMenuController(), GameAssetsManager.getSkin()));
+        main.setScreen(new SignUpMenuView(new SignUpController(), GameAssetsManager.getSkin()));
         Cursor customCursor = Gdx.graphics.newCursor(GameAssetsManager.getPixmap(), 16, 16);
         Gdx.graphics.setCursor(customCursor);
+        SaveAndLoadData.loadData();
+        SaveAndLoadData.createPlayersWithData();
     }
 
     @Override

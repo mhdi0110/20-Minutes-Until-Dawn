@@ -31,31 +31,46 @@ public class EnemyController {
         float playerY = player.getPosY();
         spawnEnemies();
         updateBullets(Gdx.graphics.getDeltaTime(), player);
+        ArrayList<Enemy> enemiesToRemove = new ArrayList<>();
         for (Enemy enemy : enemies) {
-            enemy.moveTowards(playerX, playerY);
-            enemyAnimation(enemy);
-            enemy.updateSpritePosition(player);
-            enemy.getEnemySprite().draw(Main.getBatch());
-            if (player.getHitBox().collidesWith(enemy.getHitBox())) {//TODO:hits the tree, stays, doesn't have effect
-                player.reducePlayerHealth(enemy.getDamage());
-                player.setInvincibleTime(1);
-            }
-            if (enemy.getName().equals("eyeBat")) {
-                if (eyeBatShotTimer >= 3) {
-                    float dirX = playerX - enemy.getX();
-                    float dirY = playerY - enemy.getY();
-                    float length = (float) Math.sqrt(dirX * dirX + dirY * dirY);
-                    dirX /= length;
-                    dirY /= length;
-                    Bullet bullet = new Bullet(enemy.getX(), enemy.getY(), dirX, dirY);
-                    bullet.setBulletTexture();
-                    bullets.add(bullet);
-                    eyeBatShotTimer = 0;
+            if (enemy.isDead()) {
+                Animation<Texture> animation = GameAssetsManager.getDeathAnimation();
+                enemy.getEnemySprite().setRegion(animation.getKeyFrame(enemy.getTime(), false));
+                if (!animation.isAnimationFinished(enemy.getTime())) {
+                    enemy.setTime(enemy.getTime() + Gdx.graphics.getDeltaTime());
+                    enemy.getEnemySprite().draw(Main.getBatch());
                 } else {
-                    eyeBatShotTimer += Gdx.graphics.getDeltaTime();
+                    enemiesToRemove.add(enemy);
                 }
             }
-
+            enemy.updateSpritePosition(player);
+            if (!enemy.isDead()) {
+                enemy.moveTowards(playerX, playerY);
+                enemyAnimation(enemy);
+                enemy.getEnemySprite().draw(Main.getBatch());
+                if (player.getHitBox().collidesWith(enemy.getHitBox())) {//TODO:hits the tree, stays, doesn't have effect
+                    player.reducePlayerHealth(enemy.getDamage());
+                    player.setInvincibleTime(1);
+                }
+                if (enemy.getName().equals("eyeBat")) {
+                    if (eyeBatShotTimer >= 3) {
+                        float dirX = playerX - enemy.getX();
+                        float dirY = playerY - enemy.getY();
+                        float length = (float) Math.sqrt(dirX * dirX + dirY * dirY);
+                        dirX /= length;
+                        dirY /= length;
+                        Bullet bullet = new Bullet(enemy.getX(), enemy.getY(), dirX, dirY);
+                        bullet.setBulletTexture();
+                        bullets.add(bullet);
+                        eyeBatShotTimer = 0;
+                    } else {
+                        eyeBatShotTimer += Gdx.graphics.getDeltaTime();
+                    }
+                }
+            }
+        }
+        for (Enemy enemy : enemiesToRemove) {
+            enemies.remove(enemy);
         }
     }
 

@@ -4,8 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
@@ -25,7 +27,6 @@ import io.github.some_example_name.Model.Game;
 import io.github.some_example_name.Model.GameAssetsManager;
 import io.github.some_example_name.Model.Player;
 
-
 public class GameView implements Screen, InputProcessor {
     private Stage stage;
     private GameController controller;
@@ -35,7 +36,6 @@ public class GameView implements Screen, InputProcessor {
     private AbilityController abilityController;
     private Window abilityWindow;
     private BitmapFont font;
-
     public GameView(GameController controller, Skin skin, Game game) {
         this.controller = controller;
         controller.setView(this);

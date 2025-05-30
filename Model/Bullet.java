@@ -18,6 +18,7 @@ public class Bullet {
     private float dy;
     private float speed = 500;
     private Game game;
+
     public Bullet(float x, float y, float dx, float dy) {
         this.x = x;
         this.y = y;
@@ -28,17 +29,21 @@ public class Bullet {
         hitBox = new HitBox(x, y, width, height);
         game = App.getCurrentGame();
     }
+
     public void update(float deltaTime) {
         x += dx * speed * deltaTime;
         y += dy * speed * deltaTime;
         hitBox.move(x, y);
     }
+
     public float getScreenX(Player player) {
         return x - player.getPosX() + (float) Gdx.graphics.getWidth() / 2;
     }
+
     public float getScreenY(Player player) {
         return y - player.getPosY() + (float) Gdx.graphics.getHeight() / 2;
     }
+
     public Texture getBulletTexture() {
         return bulletTexture;
     }
@@ -54,6 +59,7 @@ public class Bullet {
     public float getY() {
         return y;
     }
+
     public void setBulletTexture() {
 //        switch (weapon.getName()) {//TODO
 //            case "revolver":
@@ -66,7 +72,7 @@ public class Bullet {
 //               break;
 //        }
         bulletSprite = new Sprite(bulletTexture);
-        bulletSprite.setSize(width , height);
+        bulletSprite.setSize(width, height);
         bulletSprite.setX((float) Gdx.graphics.getWidth() / 2);
         bulletSprite.setY((float) Gdx.graphics.getHeight() / 2);
     }
@@ -74,20 +80,15 @@ public class Bullet {
     public HitBox getHitBox() {
         return hitBox;
     }
+
     public void reduceEnemyHealth(int damage, Enemy enemy) {
         enemy.setHealth(enemy.getHealth() - damage);
-        if(enemy.getHealth() <= 0) {
-            Animation<Texture> animation = GameAssetsManager.getDeathAnimation();
-            enemy.getEnemySprite().setRegion(animation.getKeyFrame(enemy.getTime(), false));
-
-            if (!animation.isAnimationFinished(enemy.getTime())) {
-                enemy.setTime((enemy.getTime() + Gdx.graphics.getDeltaTime()));
-            } else {
-                enemy.setTime(0);
-            }
+        if (enemy.getHealth() <= 0) {
+            enemy.setDead(true);
+            enemy.setTime(0);
+            enemy.getEnemySprite().setSize(enemy.getWidth(), enemy.getHeight());
             Seed seed = new Seed(enemy, enemy.getX(), enemy.getY(), 20, 20, enemy.getSeedTexture());
             game.setSeed(seed);
-            App.getCurrentGame().getEnemies().remove(enemy);
             App.getCurrentPlayer().setKills(App.getCurrentPlayer().getKills() + 1);
         }
     }

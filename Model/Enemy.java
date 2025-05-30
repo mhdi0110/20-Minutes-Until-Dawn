@@ -143,4 +143,16 @@ public class Enemy {
     public void setDead(boolean dead) {
         isDead = dead;
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setEnemyTexture(Texture enemyTexture) {
+        this.enemyTexture = enemyTexture;
+    }
 }

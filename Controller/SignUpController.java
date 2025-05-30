@@ -2,6 +2,8 @@ package io.github.some_example_name.Controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.Model.App;
@@ -42,12 +44,13 @@ public class SignUpController {
                 view.setErrorMessage("Answer is required");
             } else {
                 view.getTextButton().setChecked(false);
-                Player user = new Player(username, password);
-                App.setPlayer(user);
-                user.setSecurity(question);
-                user.setSecurityAnswer(answer);
-                setAvatar(user);
+                Player player = new Player(username, password);
+                App.setPlayer(player);
+                player.setSecurity(question);
+                player.setSecurityAnswer(answer);
+                setAvatar(player);
                 view.setErrorMessage("User registered successfully!");
+                App.setCurrentPlayer(player);
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
@@ -55,6 +58,7 @@ public class SignUpController {
                         Main.getMain().setScreen(new MainMenuView(new MainMenuController(), GameAssetsManager.getSkin()));
                     }
                 }, 2);
+                SaveAndLoadData.saveData(player);
             }
         } else if (view.getLoginButton().isChecked()) {
             Main.getMain().getScreen().dispose();

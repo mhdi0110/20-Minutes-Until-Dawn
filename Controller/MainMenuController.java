@@ -20,7 +20,8 @@ public class MainMenuController {
             Main.getMain().getScreen().dispose();
             Main.getMain().setScreen(new PreGameMenuView(new PreGameMenuController(), GameAssetsManager.getSkin()));
         } else if (view.getScoreBoardButton().isChecked()) {
-
+            Main.getMain().getScreen().dispose();
+            Main.getMain().setScreen(new ScoreBoardMenuView(new ScoreBoardMenuController(), GameAssetsManager.getSkin()));
         } else if (view.getHintButton().isChecked()) {
 
         } else if (view.getSettingButton().isChecked()) {
