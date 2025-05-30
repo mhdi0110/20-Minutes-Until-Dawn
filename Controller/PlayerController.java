@@ -2,9 +2,11 @@ package io.github.some_example_name.Controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import io.github.some_example_name.Enums.KeyBoardPreferences;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.Model.GameAssetsManager;
@@ -73,8 +75,8 @@ public class PlayerController {
 
     public void heartAnimation() {
         int health = player.getHero().getHealth();
-        for(int i = 0; i < player.getHero().getMaxHealth(); i++) {
-            if(i < health) {
+        for (int i = 0; i < player.getHero().getMaxHealth(); i++) {
+            if (i < health) {
                 Texture heartTexture = GameAssetsManager.getHeart0();
                 Sprite heartSprite = new Sprite(heartTexture);
                 heartSprite.setSize(heartTexture.getWidth() * 2, heartTexture.getHeight() * 2);

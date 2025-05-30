@@ -1,6 +1,8 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.some_example_name.Controller.LoginMenuController;
@@ -21,6 +23,8 @@ public class Main extends Game {
         main = this;
         batch = new SpriteBatch();
         main.setScreen(new LoginMenuView(new LoginMenuController(), GameAssetsManager.getSkin()));
+        Cursor customCursor = Gdx.graphics.newCursor(GameAssetsManager.getPixmap(), 16, 16);
+        Gdx.graphics.setCursor(customCursor);
     }
 
     @Override

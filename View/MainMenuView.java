@@ -103,7 +103,7 @@ public class MainMenuView implements Screen {
             font.draw(Main.getBatch(), errorMessage, 850, Gdx.graphics.getHeight() - 50);
         }
         Main.getBatch().end();
-        controller.handleSignUpButtons();
+        controller.handleMainMenuButtons();
     }
 
     @Override

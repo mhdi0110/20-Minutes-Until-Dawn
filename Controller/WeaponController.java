@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import io.github.some_example_name.Enums.KeyBoardPreferences;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.Model.*;
@@ -38,20 +37,22 @@ public class WeaponController {
 
     public void handleWeaponShoot(int screenX, int screenY) {
         if (weapon.getAmmo() > 0) {
-            float playerX = player.getPosX();
-            float playerY = player.getPosY();
-            float mouseX = Gdx.input.getX();
-            float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
-            float aimWorldX = playerX + (mouseX - (float) Gdx.graphics.getWidth() / 2);
-            float aimWorldY = playerY + (mouseY - (float) Gdx.graphics.getHeight() / 2);
-            float dirX = aimWorldX - playerX;
-            float dirY = aimWorldY - playerY;
-            float length = (float) Math.sqrt(dirX * dirX + dirY * dirY);
-            dirX /= length;
-            dirY /= length;
-            Bullet bullet = new Bullet(playerX, playerY, dirX, dirY);
-            bullet.setBulletTexture();
-            bullets.add(bullet);
+            for (int i = 0; i < weapon.getProjectile(); i++) {
+                float playerX = player.getPosX();
+                float playerY = player.getPosY();
+                float mouseX = Gdx.input.getX();
+                float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+                float aimWorldX = playerX + (mouseX - (float) Gdx.graphics.getWidth() / 2);
+                float aimWorldY = playerY + (mouseY - (float) Gdx.graphics.getHeight() / 2);
+                float dirX = aimWorldX - playerX + 80 * i;
+                float dirY = aimWorldY - playerY + 80 * i;
+                float length = (float) Math.sqrt(dirX * dirX + dirY * dirY);
+                dirX /= length;
+                dirY /= length;
+                Bullet bullet = new Bullet(playerX, playerY, dirX, dirY);
+                bullet.setBulletTexture();
+                bullets.add(bullet);
+            }
             weapon.setAmmo(weapon.getAmmo() - 1);
         }
     }
@@ -67,6 +68,7 @@ public class WeaponController {
             reloadAnimation();
         }
     }
+
     public void updateBullets(float deltaTime, Player player) {
         Iterator<Bullet> iter = bullets.iterator();
         while (iter.hasNext()) {
@@ -85,7 +87,7 @@ public class WeaponController {
     }
 
     public void reloadAnimation() {
-        Animation<Texture> animation = GameAssetsManager.getSmgReload();
+        Animation<Texture> animation = weapon.getReloadAnimation();
         weapon.getWeaponSprite().setRegion(animation.getKeyFrame(weapon.getTime(), true));
 
         if (!animation.isAnimationFinished(weapon.getTime())) {

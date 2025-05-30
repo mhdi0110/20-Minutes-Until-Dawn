@@ -7,11 +7,13 @@ import io.github.some_example_name.Model.App;
 import io.github.some_example_name.Model.Game;
 import io.github.some_example_name.Model.Player;
 import io.github.some_example_name.Model.Seed;
+import io.github.some_example_name.View.GameView;
 
 import java.util.ArrayList;
 
 public class WorldController {
     private PlayerController playerController;
+    private GameView view;
     private Texture backgroundTexture;
     private float backgroundX = 0;
     private float backgroundY = 0;
@@ -25,6 +27,10 @@ public class WorldController {
         player = playerController.getPlayer();
     }
 
+    public void setView(GameView view) {
+        this.view = view;
+    }
+
     public void update() {
         float bgScreenX = 0 - playerController.getPlayer().getPosX() + (float) Gdx.graphics.getWidth() / 2;
         float bgScreenY = 0 - playerController.getPlayer().getPosY() + (float) Gdx.graphics.getHeight() / 2;
@@ -36,6 +42,11 @@ public class WorldController {
             if (seed.getHitBox().collidesWith(player.getHitBox())) {
                 seedToRemove.add(seed);
                 player.setXp(player.getXp() + seed.getXp());
+                if (player.canUpgrade()) {
+                    player.setXp(0);
+                    player.setLevel(player.getLevel() + 1);
+                    view.setGamePaused(true);
+                }
             }
         }
         for (Seed seed : seedToRemove) {

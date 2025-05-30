@@ -2,9 +2,8 @@ package io.github.some_example_name.Model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-
-import java.awt.*;
 
 public class Weapon {
     private String name;
@@ -17,6 +16,7 @@ public class Weapon {
     private Sprite weaponSprite;
     private float time = 0;
     private boolean isReloading;
+    private Animation<Texture> reloadAnimation;
     public Weapon(String name, int damage, int projectile, int reloadTime, int maxAmmo) {
         this.name = name;
         this.damage = damage;
@@ -47,16 +47,19 @@ public class Weapon {
         return maxAmmo;
     }
 
-    public void setWeaponTexture(Player player) {
+    public void setWeaponTextureAndAnimation() {
         switch (this.name) {
             case "revolver":
                 weaponTexture = GameAssetsManager.getRevolverStill();
+                reloadAnimation = GameAssetsManager.getShotgunRevolverReload();
                 break;
             case "shotgun":
                 weaponTexture = GameAssetsManager.getRevolverStill();
+                reloadAnimation = GameAssetsManager.getShotgunRevolverReload();
                 break;
             case "smg":
                 weaponTexture = GameAssetsManager.getSmgStill();
+                reloadAnimation = GameAssetsManager.getSmgReload();
                 break;
             default:
                 weaponTexture = GameAssetsManager.getRevolverStill();
@@ -100,5 +103,21 @@ public class Weapon {
 
     public Texture getWeaponTexture() {
         return weaponTexture;
+    }
+
+    public Animation<Texture> getReloadAnimation() {
+        return reloadAnimation;
+    }
+
+    public void setProjectile(int projectile) {
+        this.projectile = projectile;
+    }
+
+    public void setMaxAmmo(int maxAmmo) {
+        this.maxAmmo = maxAmmo;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 }

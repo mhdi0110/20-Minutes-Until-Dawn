@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Player {
     private String username;
@@ -31,6 +32,10 @@ public class Player {
     private float invincibleTime = 0;
     private int xp;
     private int level;
+    private ArrayList<Ability> abilities;
+    private int kills;
+    private boolean hasWon;
+
     public Player(String username, String password) {
         this.username = username;
         this.password = password;
@@ -38,6 +43,10 @@ public class Player {
         this.securityAnswer = "";
         this.score = 0;
         this.xp = 0;
+        level = 1;
+        kills = 0;
+        hasWon = false;
+        abilities = new ArrayList<>();
         setHeartTexture();
     }
 
@@ -82,6 +91,10 @@ public class Player {
     }
 
     public int getScore() {
+        if (App.getCurrentGame() != null) {
+            int time = (int) App.getCurrentGame().getTimePassed();
+            score = time * kills;
+        }
         return score;
     }
 
@@ -192,6 +205,7 @@ public class Player {
     public HitBox getHitBox() {
         return hitBox;
     }
+
     public void setHeartTexture() {
         heartTexture = GameAssetsManager.getHeart0();
         heartSprite = new Sprite(heartTexture);
@@ -230,5 +244,45 @@ public class Player {
 
     public void setXp(int xp) {
         this.xp = xp;
+    }
+
+    public int getXpForNextLevel() {
+        return 20 * level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public boolean canUpgrade() {
+        return xp >= 20 * level;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public ArrayList<Ability> getAbilities() {
+        return abilities;
+    }
+
+    public void setAbility(Ability ability) {
+        abilities.add(ability);
+    }
+
+    public int getKills() {
+        return kills;
+    }
+
+    public void setKills(int kills) {
+        this.kills = kills;
+    }
+
+    public boolean HasWon() {
+        return hasWon;
+    }
+
+    public void setHasWon(boolean hasWon) {
+        this.hasWon = hasWon;
     }
 }

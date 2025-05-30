@@ -7,7 +7,8 @@ public enum KeyBoardPreferences {
     LEFT(Input.Keys.A),
     DOWN(Input.Keys.S),
     RIGHT(Input.Keys.D),
-    RELOAD(Input.Keys.R),;
+    RELOAD(Input.Keys.R),
+    PAUSE(Input.Keys.P),;
     public int value;
 
     KeyBoardPreferences(int value) {

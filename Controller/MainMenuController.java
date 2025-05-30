@@ -12,7 +12,7 @@ public class MainMenuController {
         this.view = view;
     }
 
-    public void handleSignUpButtons() {
+    public void handleMainMenuButtons() {
         if (view.getProfileButton().isChecked()) {
             Main.getMain().getScreen().dispose();
             Main.getMain().setScreen(new ProfileMenuView(new ProfileMenuController(), GameAssetsManager.getSkin()));

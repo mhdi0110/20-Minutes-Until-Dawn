@@ -15,7 +15,7 @@ public class LoginMenuController {
         this.view = view;
     }
 
-    public void handleSignUpButtons() {
+    public void handleLoginButtons() {
         if (view.getSignUpButton().isChecked()) {
             Main.getMain().getScreen().dispose();
             Main.getMain().setScreen(new SignUpMenuView(new SignUpController(), GameAssetsManager.getSkin()));

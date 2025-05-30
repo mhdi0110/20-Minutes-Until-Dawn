@@ -23,6 +23,7 @@ public class GameController {
 
     public void setView(GameView view) {
         this.view = view;
+        worldController.setView(view);
     }
 
     public GameController() {
@@ -45,12 +46,13 @@ public class GameController {
         enemyController = new EnemyController(enemies, App.getCurrentPlayer(), game);
     }
 
-    public void updateGame(float delta) {
+    public void updateGame(float delta, AbilityController abilityController) {
         if (view != null) {
             worldController.update();
             playerController.update();
             weaponController.update(delta);
             enemyController.update();
+            abilityController.update();
         }
     }
 

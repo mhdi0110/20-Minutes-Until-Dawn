@@ -2,6 +2,7 @@ package io.github.some_example_name.Model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import io.github.some_example_name.Enums.AbilityConstants;
 import io.github.some_example_name.Enums.HeroConstants;
 import io.github.some_example_name.Enums.WeaponConstants;
 
@@ -14,10 +15,12 @@ public class App {
     private static Player currentPlayer;
     private static Hero[] heroes;
     private static Weapon[] weapons;
+    private static Ability[] abilities;
 
     static {
         heroes = new Hero[5];
         weapons = new Weapon[3];
+        abilities = new Ability[5];
         int i = 0;
         for (HeroConstants value : HeroConstants.values()) {
             heroes[i] = new Hero(value.getName(), value.getSpeed(), value.getHealth());
@@ -27,6 +30,11 @@ public class App {
         for (WeaponConstants value : WeaponConstants.values()) {
             weapons[i] = new Weapon(value.getName(), value.getDamage(), value.getProjectile(),
                 value.getReloadTime(), value.getMaxAmmo());
+            i++;
+        }
+        i = 0;
+        for (AbilityConstants value : AbilityConstants.values()) {
+            abilities[i] = new Ability(value.getName(), value.getTexture());
             i++;
         }
     }
@@ -129,4 +137,15 @@ public class App {
         App.games.add(game);
     }
 
+    public static Ability getAbilities(int index) {
+        return abilities[index];
+    }
+    public static Ability getAbilityByName(String name) {
+        for (Ability ability : abilities) {
+            if (ability.getName().equals(name)) {
+                return ability;
+            }
+        }
+        return null;
+    }
 }

@@ -130,7 +130,7 @@ public class LoginMenuView implements Screen {
                 }
             }, 2);
         }
-        controller.handleSignUpButtons();
+        controller.handleLoginButtons();
     }
 
     @Override

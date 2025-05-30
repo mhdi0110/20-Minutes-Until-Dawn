@@ -1,9 +1,11 @@
 package io.github.some_example_name.Model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import io.github.some_example_name.Enums.WeaponConstants;
 
 public class GameAssetsManager {
     private static Skin skin;
@@ -54,8 +56,12 @@ public class GameAssetsManager {
     private static final Texture smgReload1 = new Texture(Gdx.files.internal("Sprite/SMGReload/SMGReload_1.png"));
     private static final Texture smgReload2 = new Texture(Gdx.files.internal("Sprite/SMGReload/SMGReload_2.png"));
     private static final Texture smgReload3 = new Texture(Gdx.files.internal("Sprite/SMGReload/SMGReload_3.png"));
-    private static final Animation<Texture> smgReload = new Animation<>(0.1f,
-        smgReload0, smgReload1, smgReload2, smgReload3);
+    private static final Animation<Texture> shotgunRevolverReload =
+        new Animation<>((float) WeaponConstants.REVOLVER.getReloadTime() / 4,
+            smgReload0, smgReload1, smgReload2, smgReload3);
+    private static final Animation<Texture> smgReload =
+        new Animation<>((float) WeaponConstants.SMG.getReloadTime() / 4,
+            smgReload0, smgReload1, smgReload2, smgReload3);
     private static final Texture tree0 = new Texture(Gdx.files.internal("Sprite/T/T_TreeMonster_0.png"));
     private static final Texture tree1 = new Texture(Gdx.files.internal("Sprite/T/T_TreeMonster_1.png"));
     private static final Texture tree2 = new Texture(Gdx.files.internal("Sprite/T/T_TreeMonster_2.png"));
@@ -81,6 +87,18 @@ public class GameAssetsManager {
     private static final Texture eyeBatSeed = new Texture(Gdx.files.internal("Sprite/EyeBat/T_EyeBat_EM.png"));
     private static final Animation<Texture> eyeBatAnimation = new Animation<>(0.1f,
         eyeBat0, eyeBat1, eyeBat2, eyeBat3);
+    private static final Texture vitality = new Texture(Gdx.files.internal("Sprite/Ability/Vitality.png"));
+    private static final Texture damager = new Texture(Gdx.files.internal("Sprite/Ability/Damager.png"));
+    private static final Texture procrease = new Texture(Gdx.files.internal("Sprite/Ability/Procrease.png"));
+    private static final Texture amocrease = new Texture(Gdx.files.internal("Sprite/Ability/Amocrease.png"));
+    private static final Texture speedy = new Texture(Gdx.files.internal("Sprite/Ability/Speedy.png"));
+    private static final Pixmap pixmap = new Pixmap(Gdx.files.internal("Sprite/T/T_CursorSprite.png"));
+    private static final Texture death0 = new Texture(Gdx.files.internal("Sprite/DeathFX/DeathFX_0.png"));
+    private static final Texture death1 = new Texture(Gdx.files.internal("Sprite/DeathFX/DeathFX_1.png"));
+    private static final Texture death2 = new Texture(Gdx.files.internal("Sprite/DeathFX/DeathFX_2.png"));
+    private static final Texture death3 = new Texture(Gdx.files.internal("Sprite/DeathFX/DeathFX_3.png"));
+    private static final Animation<Texture> deathAnimation = new Animation<>(0.2f,
+        death0, death1, death2, death3);
     public static Skin getSkin() {
         if (skin == null) {
             skin = new Skin(Gdx.files.internal("skin/biological-attack-ui.json"));
@@ -140,8 +158,8 @@ public class GameAssetsManager {
         return bullet;
     }
 
-    public static Animation<Texture> getSmgReload() {
-        return smgReload;
+    public static Animation<Texture> getShotgunRevolverReload() {
+        return shotgunRevolverReload;
     }
 
     public static Animation<Texture> getTreeAnimation() {
@@ -175,6 +193,7 @@ public class GameAssetsManager {
     public static Animation<Texture> getEyeBatAnimation() {
         return eyeBatAnimation;
     }
+
     public static Texture getEyeBat0() {
         return eyeBat0;
     }
@@ -185,5 +204,41 @@ public class GameAssetsManager {
 
     public static Texture getBrainMonsterSeed() {
         return brainMonsterSeed;
+    }
+
+    public static Animation<Texture> getSmgReload() {
+        return smgReload;
+    }
+
+    public static Texture getVitality() {
+        return vitality;
+    }
+
+    public static Texture getAmocrease() {
+        return amocrease;
+    }
+
+    public static Texture getSpeedy() {
+        return speedy;
+    }
+
+    public static Texture getDamager() {
+        return damager;
+    }
+
+    public static Texture getProcrease() {
+        return procrease;
+    }
+
+    public static Pixmap getPixmap() {
+        return pixmap;
+    }
+
+    public static Texture getDeath0() {
+        return death0;
+    }
+
+    public static Animation<Texture> getDeathAnimation() {
+        return deathAnimation;
     }
 }

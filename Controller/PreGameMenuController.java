@@ -4,15 +4,15 @@ import io.github.some_example_name.Main;
 import io.github.some_example_name.Model.*;
 import io.github.some_example_name.View.*;
 
-public class  PreGameMenuController {
+public class PreGameMenuController {
     private PreGameMenuView view;
 
-    public void setView( PreGameMenuView view) {
+    public void setView(PreGameMenuView view) {
         this.view = view;
     }
 
     public void handleSignUpButtons() {
-        if(view.getPlayButton().isChecked()) {
+        if (view.getPlayButton().isChecked()) {
             String heroName = view.getHeroSelectBox().getSelected();
             String weaponName = view.getWeaponSelectBox().getSelected();
             float duration = view.getDurationSelectBox().getSelected();
@@ -26,11 +26,12 @@ public class  PreGameMenuController {
             player.setWeapon(weapon);
             player.setPlayerTexture();
             player.setPlayerAnimation();
-            player.getWeapon().setWeaponTexture(player);
-
+            player.getWeapon().setWeaponTextureAndAnimation();
+            GameView gameView = new GameView(new GameController(), GameAssetsManager.getSkin(), game);
+            game.setView(gameView);
             view.getPlayButton().setChecked(false);
             Main.getMain().getScreen().dispose();
-            Main.getMain().setScreen(new GameView(new GameController(), GameAssetsManager.getSkin(), game));
+            Main.getMain().setScreen(gameView);
         }
     }
 }

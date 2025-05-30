@@ -1,5 +1,7 @@
 package io.github.some_example_name.Model;
 
+import io.github.some_example_name.View.GameView;
+
 import java.util.ArrayList;
 
 public class Game {
@@ -7,6 +9,7 @@ public class Game {
     private ArrayList<Enemy> enemies;
     private ArrayList<Seed> seeds;
     private float timePassed;
+    private GameView view;
 
     public Game(float duration) {
         this.duration = duration * 60;
@@ -41,5 +44,21 @@ public class Game {
 
     public float getDuration() {
         return duration;
+    }
+
+    public GameView getView() {
+        return view;
+    }
+
+    public void setView(GameView view) {
+        this.view = view;
+    }
+
+    public int getMinutesLeft() {
+        return (int) ((duration - timePassed) / 60);
+    }
+
+    public int getSecondsLeft() {
+        return (int) ((duration - timePassed) % 60);
     }
 }

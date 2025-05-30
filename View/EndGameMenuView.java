@@ -9,32 +9,36 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import io.github.some_example_name.Controller.MainMenuController;
+import io.github.some_example_name.Controller.EndGameMenuController;
 import io.github.some_example_name.Controller.PauseMenuController;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.Model.Ability;
 import io.github.some_example_name.Model.App;
+import io.github.some_example_name.Model.Player;
 
-public class PauseMenuView implements Screen {
+public class EndGameMenuView implements Screen {
     private Stage stage;
     private Table table;
     private BitmapFont font;
     private Texture backgroundTexture;
     private Image backgroundImage;
     private String errorMessage;
-    private TextButton resumeButton;
-    private TextButton giveUpButton;
-    private PauseMenuController controller;
+    private EndGameMenuController controller;
+    private Label winLoseLabel;
+    private TextButton goToMainMenuButton;
+    private Player player;
 
-    public PauseMenuView(PauseMenuController controller, Skin skin) {
+    public EndGameMenuView(EndGameMenuController controller, Skin skin) {
         this.controller = controller;
         this.backgroundTexture = new Texture(Gdx.files.internal("backgrounds/GameBG.png"));
         this.backgroundImage = new Image(backgroundTexture);
         this.table = new Table();
         this.font = new BitmapFont();
         this.controller.setView(this);
-        this.resumeButton = new TextButton("Resume", skin);
-        this.giveUpButton = new TextButton("GiveUp", skin);
+        this.winLoseLabel = new Label("", skin);
+        winLoseLabel.setFontScale(2f);
+        this.goToMainMenuButton = new TextButton("Go back to main menu", skin);
+        player = App.getCurrentPlayer();
     }
 
     @Override
@@ -42,13 +46,20 @@ public class PauseMenuView implements Screen {
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         this.font.setColor(Color.WHITE);
-        resumeButton.setColor(Color.BLACK);
-        giveUpButton.setColor(Color.BLACK);
         table.setFillParent(true);
+        if (player.HasWon()) {
+            winLoseLabel.setText("You won!");
+            winLoseLabel.setColor(Color.GREEN);
+        } else {
+            winLoseLabel.setText("You lost!");
+            winLoseLabel.setColor(Color.RED);
+        }
+        goToMainMenuButton.setColor(Color.BLACK);
         table.center();
-        table.add(resumeButton).width(600).padBottom(32f).height(80);
+        table.add(winLoseLabel);
         table.row();
-        table.add(giveUpButton).width(600).padBottom(32f).height(80);
+        table.add(goToMainMenuButton).width(600).padBottom(32f).height(80);
+
         stage.addActor(backgroundImage);
         stage.addActor(table);
     }
@@ -60,18 +71,13 @@ public class PauseMenuView implements Screen {
         stage.act(delta);
         stage.draw();
         Main.getBatch().begin();
-        font.getData().setScale(2f);
-        int i = 1;
-        font.draw(Main.getBatch(), "abilities: ", 0, Gdx.graphics.getHeight());
-        for (Ability ability : App.getCurrentPlayer().getAbilities()) {
-            font.draw(Main.getBatch(), i + "-" + ability.getName(), 0, Gdx.graphics.getHeight() - 40 * i);
-            i++;
-        }
-        font.getData().setScale(1.7f);
-        if (errorMessage != null && !errorMessage.isEmpty()) {
-            font.draw(Main.getBatch(), errorMessage, 850, Gdx.graphics.getHeight() - 50);
-        }
-        controller.handlePauseMenuButtons();
+        font.getData().setScale(1.5f);
+        font.draw(Main.getBatch(), "UserName: " + player.getUsername(), 900, 500);
+        font.draw(Main.getBatch(), "Time Alive: " + (int) App.getCurrentGame().getTimePassed() + " s",
+            900, 470);
+        font.draw(Main.getBatch(), "KILLS: " + player.getKills(), 900, 440);
+        font.draw(Main.getBatch(), "Score: " + player.getScore(), 900, 410);
+        controller.handleEndGameMenuButtons();
         Main.getBatch().end();
     }
 
@@ -104,11 +110,7 @@ public class PauseMenuView implements Screen {
         this.errorMessage = errorMessage;
     }
 
-    public TextButton getResumeButton() {
-        return resumeButton;
-    }
-
-    public TextButton getGiveUpButton() {
-        return giveUpButton;
+    public TextButton getGoToMainMenuButton() {
+        return goToMainMenuButton;
     }
 }

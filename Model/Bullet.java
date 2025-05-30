@@ -2,6 +2,7 @@ package io.github.some_example_name.Model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.some_example_name.Main;
 
@@ -76,9 +77,18 @@ public class Bullet {
     public void reduceEnemyHealth(int damage, Enemy enemy) {
         enemy.setHealth(enemy.getHealth() - damage);
         if(enemy.getHealth() <= 0) {
+            Animation<Texture> animation = GameAssetsManager.getDeathAnimation();
+            enemy.getEnemySprite().setRegion(animation.getKeyFrame(enemy.getTime(), false));
+
+            if (!animation.isAnimationFinished(enemy.getTime())) {
+                enemy.setTime((enemy.getTime() + Gdx.graphics.getDeltaTime()));
+            } else {
+                enemy.setTime(0);
+            }
             Seed seed = new Seed(enemy, enemy.getX(), enemy.getY(), 20, 20, enemy.getSeedTexture());
             game.setSeed(seed);
             App.getCurrentGame().getEnemies().remove(enemy);
+            App.getCurrentPlayer().setKills(App.getCurrentPlayer().getKills() + 1);
         }
     }
 }

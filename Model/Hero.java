@@ -32,4 +32,13 @@ public class Hero {
     public int getMaxHealth() {
         return maxHealth;
     }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
 }
