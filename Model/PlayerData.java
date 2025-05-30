@@ -36,4 +36,20 @@ public class PlayerData {
     public String getSecurityAnswer() {
         return securityAnswer;
     }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getKills() {
+        return kills;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getTimeAlive() {
+        return timeAlive;
+    }
 }

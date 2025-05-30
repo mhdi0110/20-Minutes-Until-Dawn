@@ -42,11 +42,6 @@ public class WorldController {
             if (seed.getHitBox().collidesWith(player.getHitBox())) {
                 seedToRemove.add(seed);
                 player.setXp(player.getXp() + seed.getXp());
-                if (player.canUpgrade()) {
-                    player.setXp(0);
-                    player.setLevel(player.getLevel() + 1);
-                    view.setGamePaused(true);
-                }
             }
         }
         for (Seed seed : seedToRemove) {

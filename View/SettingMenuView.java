@@ -31,6 +31,7 @@ public class SettingMenuView implements Screen {
     private boolean isMusicOn;
     private Slider volumeSlider;
     private Label volumeLabel;
+    private TextButton autoReloadButton;
 
     public SettingMenuView(SettingMenuController controller, Skin skin) {
         this.controller = controller;
@@ -50,6 +51,7 @@ public class SettingMenuView implements Screen {
         this.volumeSlider = new Slider(0f, 1f, 0.01f, false, skin);
         this.volumeSlider.setValue(0.5f); // Default to 50% volume
         this.volumeLabel = new Label("Volume: 50%", skin);
+        this.autoReloadButton = new TextButton("Auto Reload: on", skin);
     }
 
     @Override
@@ -60,6 +62,7 @@ public class SettingMenuView implements Screen {
         font.setColor(Color.WHITE);
         music.setColor(Color.BLACK);
         onOffButton.setColor(Color.BLACK);
+        autoReloadButton.setColor(Color.BLACK);
         table.setFillParent(true);
         table.center();
         table.add(music).width(600).padBottom(32f).height(60);
@@ -71,6 +74,8 @@ public class SettingMenuView implements Screen {
         table.add(onOffButton).width(600).padBottom(32f).height(60);
         table.row();
         table.add(backButton).width(600).padBottom(32f).height(60);
+        table.row();
+        table.add(autoReloadButton).width(600).padBottom(32f).height(60);
         table.row();
         stage.addActor(backgroundImage);
         stage.addActor(table);
@@ -87,7 +92,7 @@ public class SettingMenuView implements Screen {
         if (errorMessage != null && !errorMessage.isEmpty()) {
             font.draw(Main.getBatch(), errorMessage, 850, Gdx.graphics.getHeight() - 50);
         }
-        volumeLabel.setText("Volume: " + (int)(volumeSlider.getValue() * 100) + "%");
+        volumeLabel.setText("Volume: " + (int) (volumeSlider.getValue() * 100) + "%");
         if (backgroundMusic != null) {
             backgroundMusic.setVolume(volumeSlider.getValue());
         }
@@ -104,9 +109,18 @@ public class SettingMenuView implements Screen {
                 isMusicOn = false;
                 onOffButton.setText("On");
                 if (backgroundMusic != null) backgroundMusic.stop();
-
             }
             onOffButton.setChecked(false);
+        }
+        if (autoReloadButton.isChecked()) {
+            if (App.isIsAutoReloadOn()) {
+                App.setAutoReloadOn(false);
+                autoReloadButton.setText("Auto Reload: on");
+            } else {
+                autoReloadButton.setText("Auto Reload: off");
+                App.setAutoReloadOn(true);
+            }
+            autoReloadButton.setChecked(false);
         }
         Main.getBatch().end();
         controller.handleSignUpButtons();

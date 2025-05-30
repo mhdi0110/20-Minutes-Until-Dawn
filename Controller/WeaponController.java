@@ -54,6 +54,8 @@ public class WeaponController {
                 bullets.add(bullet);
             }
             weapon.setAmmo(weapon.getAmmo() - 1);
+        } else if(App.isIsAutoReloadOn()) {
+            weapon.setReloading(true);
         }
     }
 

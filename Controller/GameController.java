@@ -20,6 +20,7 @@ public class GameController {
     private WeaponController weaponController = new WeaponController(App.getCurrentPlayer().getWeapon());
     private WorldController worldController = new WorldController(playerController);
     private EnemyController enemyController;
+    private Player player;
 
     public void setView(GameView view) {
         this.view = view;
@@ -28,6 +29,7 @@ public class GameController {
 
     public GameController() {
         this.game = App.getCurrentGame();
+        this.player = App.getCurrentPlayer();
         ArrayList<Enemy> enemies = game.getEnemies();
         int treeAmount = GenerateRandomNumber.generateRandomNumber(20, 30);
         int x, y;
@@ -48,6 +50,7 @@ public class GameController {
 
     public void updateGame(float delta, AbilityController abilityController) {
         if (view != null) {
+            player.setInvincibleTime(Math.max(0, player.getInvincibleTime() - delta));
             worldController.update();
             playerController.update();
             weaponController.update(delta);

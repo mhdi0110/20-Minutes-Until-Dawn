@@ -37,6 +37,15 @@ public class Player {
     private boolean hasWon;
     private int timeAlive;
     private PlayerData playerData;
+    private Texture shieldTexture;
+    private Sprite shieldSprite;
+    private Animation<Texture> shieldAnimation;
+    private float shieldTime;
+    private boolean isImmortal;
+    private Texture hitTexture;
+    private Sprite hitSprite;
+    private Animation<Texture> hitAnimation;
+    private float hitTime;
     public Player(String username, String password) {
         this.username = username;
         this.password = password;
@@ -51,6 +60,11 @@ public class Player {
         timeAlive = 0;
         playerData = new PlayerData();
         setHeartTexture();
+        shieldTexture = GameAssetsManager.getShield0();
+        shieldSprite = new Sprite(shieldTexture);
+        shieldAnimation = GameAssetsManager.getShieldAnimation();
+        shieldTime = 0;
+        isImmortal = false;
     }
 
     public String getUsername() {
@@ -154,18 +168,38 @@ public class Player {
         switch (hero.getName()) {
             case "shana":
                 playerTexture = GameAssetsManager.getShana0();
+                playerAnimation = GameAssetsManager.getShanaAnimation();
+                hitTexture = GameAssetsManager.getShanaHit0();
+                hitSprite = new Sprite(hitTexture);
+                hitAnimation = GameAssetsManager.getShanaHitAnimation();
                 break;
             case "diamond":
                 playerTexture = GameAssetsManager.getDiamond0();
+                playerAnimation = GameAssetsManager.getDiamondAnimation();
+                hitTexture = GameAssetsManager.getDiamondHit0();
+                hitSprite = new Sprite(hitTexture);
+                hitAnimation = GameAssetsManager.getDiamondHitAnimation();
                 break;
             case "scarlet":
                 playerTexture = GameAssetsManager.getScarlet0();
+                playerAnimation = GameAssetsManager.getScarletAnimation();
+                hitTexture = GameAssetsManager.getScarletHit0();
+                hitSprite = new Sprite(hitTexture);
+                hitAnimation = GameAssetsManager.getScarletHitAnimation();
                 break;
             case "lilith":
                 playerTexture = GameAssetsManager.getLilith0();
+                playerAnimation = GameAssetsManager.getLilithAnimation();
+                hitTexture = GameAssetsManager.getLilithHit0();
+                hitSprite = new Sprite(hitTexture);
+                hitAnimation = GameAssetsManager.getLilithHitAnimation();
                 break;
             case "dasher":
                 playerTexture = GameAssetsManager.getDasher0();
+                playerAnimation = GameAssetsManager.getDasherAnimation();
+                hitTexture = GameAssetsManager.getDasherHit0();
+                hitSprite = new Sprite(hitTexture);
+                hitAnimation = GameAssetsManager.getDasherHitAnimation();
                 break;
             default:
                 playerTexture = GameAssetsManager.getDasher0();
@@ -176,33 +210,12 @@ public class Player {
         playerSprite.setSize(playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
         hitBox = new HitBox((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight(),
             playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
+        shieldSprite.setSize(playerTexture.getWidth() * 4, playerTexture.getHeight() * 4);
+
     }
 
     public Animation<Texture> getPlayerAnimation() {
         return playerAnimation;
-    }
-
-    public void setPlayerAnimation() {
-        switch (hero.getName()) {
-            case "shana":
-                playerAnimation = GameAssetsManager.getShanaAnimation();
-                break;
-            case "diamond":
-                playerAnimation = GameAssetsManager.getDiamondAnimation();
-                break;
-            case "scarlet":
-                playerAnimation = GameAssetsManager.getScarletAnimation();
-                break;
-            case "lilith":
-                playerAnimation = GameAssetsManager.getLilithAnimation();
-                break;
-            case "dasher":
-                playerAnimation = GameAssetsManager.getDasherAnimation();
-                break;
-            default:
-                playerAnimation = GameAssetsManager.getDasherAnimation();
-                break;
-        }
     }
 
     public HitBox getHitBox() {
@@ -299,5 +312,45 @@ public class Player {
 
     public PlayerData getPlayerData() {
         return playerData;
+    }
+
+    public Sprite getShieldSprite() {
+        return shieldSprite;
+    }
+
+    public Animation<Texture> getShieldAnimation() {
+        return shieldAnimation;
+    }
+
+    public float getShieldTime() {
+        return shieldTime;
+    }
+
+    public void setShieldTime(float shieldTime) {
+        this.shieldTime = shieldTime;
+    }
+
+    public boolean isImmortal() {
+        return isImmortal;
+    }
+
+    public void setImmortal(boolean immortal) {
+        isImmortal = immortal;
+    }
+
+    public float getHitTime() {
+        return hitTime;
+    }
+
+    public void setHitTime(float hitTime) {
+        this.hitTime = hitTime;
+    }
+
+    public Animation<Texture> getHitAnimation() {
+        return hitAnimation;
+    }
+
+    public Sprite getHitSprite() {
+        return hitSprite;
     }
 }

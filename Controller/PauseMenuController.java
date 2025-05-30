@@ -20,7 +20,6 @@ public class PauseMenuController {
         if (view.getGiveUpButton().isChecked()) {
             player.setHasWon(false);
             view.getGiveUpButton().setChecked(false);
-            Main.getBatch().end();
             Main.getMain().setScreen(new EndGameMenuView(new EndGameMenuController(), GameAssetsManager.getSkin()));
         } else if (view.getResumeButton().isChecked()) {
             Main.getMain().getScreen().dispose();

@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.some_example_name.Controller.MainMenuController;
 import io.github.some_example_name.Controller.PauseMenuController;
+import io.github.some_example_name.Enums.CheatCodesConstants;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.Model.Ability;
 import io.github.some_example_name.Model.App;
@@ -65,6 +66,12 @@ public class PauseMenuView implements Screen {
         font.draw(Main.getBatch(), "abilities: ", 0, Gdx.graphics.getHeight());
         for (Ability ability : App.getCurrentPlayer().getAbilities()) {
             font.draw(Main.getBatch(), i + "-" + ability.getName(), 0, Gdx.graphics.getHeight() - 40 * i);
+            i++;
+        }
+        i = 1;
+        font.draw(Main.getBatch(), "cheat codes: ", 0, Gdx.graphics.getHeight() - 400);
+        for (CheatCodesConstants value : CheatCodesConstants.values()) {
+            font.draw(Main.getBatch(), i + "-" + value.getName(), 0, Gdx.graphics.getHeight() - 40 * i - 400);
             i++;
         }
         font.getData().setScale(1.7f);

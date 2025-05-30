@@ -16,10 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import io.github.some_example_name.Controller.AbilityController;
-import io.github.some_example_name.Controller.EndGameMenuController;
-import io.github.some_example_name.Controller.GameController;
-import io.github.some_example_name.Controller.PauseMenuController;
+import io.github.some_example_name.Controller.*;
 import io.github.some_example_name.Enums.KeyBoardPreferences;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.Model.App;
@@ -36,6 +33,7 @@ public class GameView implements Screen, InputProcessor {
     private AbilityController abilityController;
     private Window abilityWindow;
     private BitmapFont font;
+
     public GameView(GameController controller, Skin skin, Game game) {
         this.controller = controller;
         controller.setView(this);
@@ -57,9 +55,19 @@ public class GameView implements Screen, InputProcessor {
     public void render(float delta) {
         Main.getBatch().begin();
         ScreenUtils.clear(0, 0, 0, 1);
+        if (player.canUpgrade()) {
+            player.setXp(0);
+            player.setLevel(player.getLevel() + 1);
+            setGamePaused(true);
+        }
         if (Gdx.input.isKeyPressed(KeyBoardPreferences.PAUSE.getValue())) {
             Main.getBatch().end();
             Main.getMain().setScreen(new PauseMenuView(new PauseMenuController(), GameAssetsManager.getSkin()));
+            return;
+        }
+        if (Gdx.input.isKeyPressed(KeyBoardPreferences.CHEAT.getValue())) {
+            Main.getBatch().end();
+            Main.getMain().setScreen(new CheatMenuView(new CheatMenuController(), GameAssetsManager.getSkin()));
             return;
         }
         if (game.getTimePassed() >= game.getDuration()) {
@@ -68,7 +76,7 @@ public class GameView implements Screen, InputProcessor {
             Main.getMain().setScreen(new EndGameMenuView(new EndGameMenuController(), GameAssetsManager.getSkin()));
             return;
         }
-        if (player.getHero().getHealth() <= 0) {
+        if (player.getHero().getHealth() <= 0 && !player.isImmortal()) {
             player.setHasWon(false);
             Main.getBatch().end();
             Main.getMain().setScreen(new EndGameMenuView(new EndGameMenuController(), GameAssetsManager.getSkin()));
@@ -80,13 +88,12 @@ public class GameView implements Screen, InputProcessor {
                 abilityWindow = null;
             }
             controller.updateGame(delta, abilityController);
-            player.setInvincibleTime(Math.max(0, player.getInvincibleTime() - delta));
             game.setTimePassed(game.getTimePassed() + Gdx.graphics.getDeltaTime());
             font.getData().setScale(2f);
             font.draw(Main.getBatch(), "Time left: " + game.getMinutesLeft() + ":" + game.getSecondsLeft(),
                 280, Gdx.graphics.getHeight() - 15);
-            font.draw(Main.getBatch(), "Kills: " + player.getKills(), 1480, Gdx.graphics.getHeight() - 15 );
-            font.draw(Main.getBatch(), "Level: " + player.getLevel(), 1780, Gdx.graphics.getHeight() - 15 );
+            font.draw(Main.getBatch(), "Kills: " + player.getKills(), 1480, Gdx.graphics.getHeight() - 15);
+            font.draw(Main.getBatch(), "Level: " + player.getLevel(), 1780, Gdx.graphics.getHeight() - 15);
             ShapeRenderer shapeRenderer = new ShapeRenderer();
             float width = 800;
             float height = 20;

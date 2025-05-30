@@ -50,6 +50,7 @@ public class EnemyController {
                 enemy.getEnemySprite().draw(Main.getBatch());
                 if (player.getHitBox().collidesWith(enemy.getHitBox())) {//TODO:hits the tree, stays, doesn't have effect
                     player.reducePlayerHealth(enemy.getDamage());
+                    playerHitAnimation();
                     player.setInvincibleTime(1);
                 }
                 if (enemy.getName().equals("eyeBat")) {
@@ -113,7 +114,7 @@ public class EnemyController {
             }
         }
         if (game.getTimePassed() >= game.getDuration() / 4) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < (4 * (int) game.getTimePassed() - (int) game.getDuration() + 30) / 30; i++) {
                 if (eyeBatSpawnTimer >= 10) {
                     x = GenerateRandomNumber.generateRandomNumber(0, 3500);
                     y = GenerateRandomNumber.generateRandomNumber(0, 2500);
@@ -122,8 +123,20 @@ public class EnemyController {
                     eyeBatSpawnTimer = 0;
                 } else {
                     eyeBatSpawnTimer += Gdx.graphics.getDeltaTime();
-                }//(4 * (int) game.getTimePassed() - (int) game.getDuration() + 30) / 30//TODO
+                }
             }
         }
     }
+
+    private void playerHitAnimation() {
+        Animation<Texture> animation = player.getHitAnimation();
+        player.getPlayerSprite().setRegion(animation.getKeyFrame(player.getHitTime(), false));
+
+        if (!animation.isAnimationFinished(player.getHitTime())) {
+            player.setHitTime((player.getHitTime() + Gdx.graphics.getDeltaTime()));
+        } else {
+            player.setHitTime(0);
+        }
+    }
+    
 }

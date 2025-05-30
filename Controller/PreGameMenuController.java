@@ -24,9 +24,9 @@ public class PreGameMenuController {
             Player player = App.getCurrentPlayer();
             player.setHero(hero);
             player.setWeapon(weapon);
-            player.setPlayerTexture();
-            player.setPlayerAnimation();
             player.getWeapon().setWeaponTextureAndAnimation();
+            player.setPlayerTexture();
+
             GameView gameView = new GameView(new GameController(), GameAssetsManager.getSkin(), game);
             game.setView(gameView);
             view.getPlayButton().setChecked(false);

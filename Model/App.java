@@ -17,6 +17,7 @@ public class App {
     private static Weapon[] weapons;
     private static Ability[] abilities;
     private static ArrayList<PlayerData> playerData = new ArrayList<>();
+    private static boolean isAutoReloadOn;
 
     static {
         heroes = new Hero[5];
@@ -38,6 +39,7 @@ public class App {
             abilities[i] = new Ability(value.getName(), value.getTexture());
             i++;
         }
+        isAutoReloadOn = false;
     }
 
     public static ArrayList<Player> getPlayers() {
@@ -161,5 +163,13 @@ public class App {
 
     public static void setPlayerData(ArrayList<PlayerData> playerData) {
         App.playerData = playerData;
+    }
+
+    public static boolean isIsAutoReloadOn() {
+        return isAutoReloadOn;
+    }
+
+    public static void setAutoReloadOn(boolean isAutoReloadOn) {
+        App.isAutoReloadOn = isAutoReloadOn;
     }
 }

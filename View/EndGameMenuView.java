@@ -40,6 +40,7 @@ public class EndGameMenuView implements Screen {
         winLoseLabel.setFontScale(2f);
         this.goToMainMenuButton = new TextButton("Go back to main menu", skin);
         player = App.getCurrentPlayer();
+        player.setTimeAlive((int) App.getCurrentGame().getTimePassed());
         SaveAndLoadData.saveData(player);
     }
 

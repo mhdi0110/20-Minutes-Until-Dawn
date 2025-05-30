@@ -60,7 +60,9 @@ public class SignUpController {
                 }, 2);
                 SaveAndLoadData.saveData(player);
             }
+            view.getTextButton().setChecked(false);
         } else if (view.getLoginButton().isChecked()) {
+            view.getLoginButton().setChecked(false);
             Main.getMain().getScreen().dispose();
             Main.getMain().setScreen(new LoginMenuView(new LoginMenuController(), GameAssetsManager.getSkin()));
         } else if (view.getLoginAsGuestButton().isChecked()) {
@@ -73,7 +75,7 @@ public class SignUpController {
                     Main.getMain().setScreen(new MainMenuView(new MainMenuController(), GameAssetsManager.getSkin()));
                 }
             }, 2);
-
+            view.getLoginAsGuestButton().setChecked(false);
         }
     }
     public void setAvatar(Player user) {

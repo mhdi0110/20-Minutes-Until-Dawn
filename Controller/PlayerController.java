@@ -21,12 +21,13 @@ public class PlayerController {
 
     public void update() {
         player.getPlayerSprite().draw(Main.getBatch());
-
-//        if(player.isPlayerIdle()){
+        player.getShieldSprite().setPosition(player.getPlayerSprite().getX() - 10, player.getPlayerSprite().getY() - 10);
+        player.getShieldSprite().draw(Main.getBatch());
         idleAnimation();
-//        }
         heartAnimation();
         handlePlayerInput();
+        shieldAnimation();
+
     }
 
 
@@ -99,5 +100,18 @@ public class PlayerController {
                 heartSprite.draw(Main.getBatch());
             }
         }
+    }
+
+    public void shieldAnimation() {
+        Animation<Texture> animation = player.getShieldAnimation();
+
+        player.getShieldSprite().setRegion(animation.getKeyFrame(player.getShieldTime(), true));
+
+        if (!animation.isAnimationFinished(player.getShieldTime())) {
+            player.setShieldTime((player.getShieldTime() + Gdx.graphics.getDeltaTime()));
+        } else {
+            player.setShieldTime(0);
+        }
+        animation.setPlayMode(Animation.PlayMode.LOOP);
     }
 }

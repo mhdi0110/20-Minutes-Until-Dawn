@@ -99,6 +99,41 @@ public class GameAssetsManager {
     private static final Texture death3 = new Texture(Gdx.files.internal("Sprite/DeathFX/DeathFX_3.png"));
     private static final Animation<Texture> deathAnimation = new Animation<>(0.2f,
         death0, death1, death2, death3);
+    private static final Texture shield0 = new Texture(Gdx.files.internal("Sprite/HolyShield/HolyShield_0.png"));
+    private static final Texture shield1 = new Texture(Gdx.files.internal("Sprite/HolyShield/HolyShield_1.png"));
+    private static final Texture shield2 = new Texture(Gdx.files.internal("Sprite/HolyShield/HolyShield_2.png"));
+    private static final Texture shield3 = new Texture(Gdx.files.internal("Sprite/HolyShield/HolyShield_3.png"));
+    private static final Texture shield4 = new Texture(Gdx.files.internal("Sprite/HolyShield/HolyShield_4.png"));
+    private static final Texture shield5 = new Texture(Gdx.files.internal("Sprite/HolyShield/HolyShield_5.png"));
+    private static final Texture shield6 = new Texture(Gdx.files.internal("Sprite/HolyShield/HolyShield_6.png"));
+    private static final Animation<Texture> shieldAnimation = new Animation<>(0.08f,
+        shield0, shield1, shield2, shield3, shield4, shield5, shield6);
+    private static final Texture dasherHit0 = new Texture(Gdx.files.internal("Sprite/Hit/dasher_0_hit_white_flash.png"));
+    private static final Texture dasherHit1 = new Texture(Gdx.files.internal("Sprite/Hit/dasher_0_hit_outline.png"));
+    private static final Texture dasherHit2 = new Texture(Gdx.files.internal("Sprite/Hit/dasher_0_hit_fade.png"));
+    private static final Animation<Texture> dasherHitAnimation = new Animation<>(0.2f,
+        dasherHit0, dasherHit1, dasherHit2);
+    private static final Texture diamondHit0 = new Texture(Gdx.files.internal("Sprite/Hit/diamond_0_hit_white_flash.png"));
+    private static final Texture diamondHit1 = new Texture(Gdx.files.internal("Sprite/Hit/diamond_0_hit_outline.png"));
+    private static final Texture diamondHit2 = new Texture(Gdx.files.internal("Sprite/Hit/diamond_0_hit_fade.png"));
+    private static final Animation<Texture> diamondHitAnimation = new Animation<>(0.2f,
+        diamondHit0, diamondHit1, diamondHit2);
+    private static final Texture lilithHit0 = new Texture(Gdx.files.internal("Sprite/Hit/lilith_0_hit_white_flash.png"));
+    private static final Texture lilithHit1 = new Texture(Gdx.files.internal("Sprite/Hit/lilith_0_hit_outline.png"));
+    private static final Texture lilithHit2 = new Texture(Gdx.files.internal("Sprite/Hit/lilith_0_hit_fade.png"));
+    private static final Animation<Texture> lilithHitAnimation = new Animation<>(0.2f,
+        lilithHit0, lilithHit1, lilithHit2);
+    private static final Texture scarletHit0 = new Texture(Gdx.files.internal("Sprite/Hit/scarlet_0_hit_white_flash.png"));
+    private static final Texture scarletHit1 = new Texture(Gdx.files.internal("Sprite/Hit/scarlet_0_hit_outline.png"));
+    private static final Texture scarletHit2 = new Texture(Gdx.files.internal("Sprite/Hit/scarlet_0_hit_fade.png"));
+    private static final Animation<Texture> scarletHitAnimation = new Animation<>(0.2f,
+        scarletHit0, scarletHit1, scarletHit2);
+    private static final Texture shanaHit0 = new Texture(Gdx.files.internal("Sprite/Hit/shana_0_hit_white_flash.png"));
+    private static final Texture shanaHit1 = new Texture(Gdx.files.internal("Sprite/Hit/shana_0_hit_outline.png"));
+    private static final Texture shanaHit2 = new Texture(Gdx.files.internal("Sprite/Hit/shana_0_hit_fade.png"));
+    private static final Animation<Texture> shanaHitAnimation = new Animation<>(0.2f,
+        shanaHit0, shanaHit1, shanaHit2);
+
     public static Skin getSkin() {
         if (skin == null) {
             skin = new Skin(Gdx.files.internal("skin/biological-attack-ui.json"));
@@ -240,5 +275,53 @@ public class GameAssetsManager {
 
     public static Animation<Texture> getDeathAnimation() {
         return deathAnimation;
+    }
+
+    public static Texture getShield0() {
+        return shield0;
+    }
+
+    public static Animation<Texture> getShieldAnimation() {
+        return shieldAnimation;
+    }
+
+    public static Animation<Texture> getDasherHitAnimation() {
+        return dasherHitAnimation;
+    }
+
+    public static Animation<Texture> getDiamondHitAnimation() {
+        return diamondHitAnimation;
+    }
+
+    public static Animation<Texture> getLilithHitAnimation() {
+        return lilithHitAnimation;
+    }
+
+    public static Animation<Texture> getScarletHitAnimation() {
+        return scarletHitAnimation;
+    }
+
+    public static Animation<Texture> getShanaHitAnimation() {
+        return shanaHitAnimation;
+    }
+
+    public static Texture getDasherHit0() {
+        return dasherHit0;
+    }
+
+    public static Texture getDiamondHit0() {
+        return diamondHit0;
+    }
+
+    public static Texture getLilithHit0() {
+        return lilithHit0;
+    }
+
+    public static Texture getScarletHit0() {
+        return scarletHit0;
+    }
+
+    public static Texture getShanaHit0() {
+        return shanaHit0;
     }
 }

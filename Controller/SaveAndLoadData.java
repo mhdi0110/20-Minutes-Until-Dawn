@@ -31,6 +31,7 @@ public class SaveAndLoadData {
             String password = playerData.getPassword();
             String security = playerData.getSecurity();
             String securityAnswer = playerData.getSecurityAnswer();
+            
             Player player = new Player(username, password);
             player.setSecurity(security);
             player.setSecurityAnswer(securityAnswer);

@@ -66,12 +66,12 @@ public class ScoreBoardMenuView implements Screen {
         stage.draw();
         Main.getBatch().begin();
         font.getData().setScale(1.5f);
-        font.draw(Main.getBatch(), "username", 800, 500);
-        font.draw(Main.getBatch(), "score", 900, 500);
+        font.draw(Main.getBatch(), "username", 700, 500);
+        font.draw(Main.getBatch(), "score", 880, 500);
         font.draw(Main.getBatch(), "kill", 1000, 500);
         font.draw(Main.getBatch(), "time alive", 1100, 500);
-        Main.getBatch().end();
         controller.handleScoreBoardMenuButtons();
+        Main.getBatch().end();
     }
 
     @Override
@@ -101,5 +101,9 @@ public class ScoreBoardMenuView implements Screen {
 
     public SelectBox<String> getOrderBox() {
         return orderBox;
+    }
+
+    public BitmapFont getFont() {
+        return font;
     }
 }
